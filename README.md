@@ -1,2 +1,2 @@
-# machine learning
-estudos machine learning
+# machine learning e ciência de dados
+estudos machine learning e ciência de dados
