@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Preprocessing - Barrett II Eyes Clustering</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; background: #f5f5f5; }
+        .container { max-width: 1200px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px; }
+        h1 { color: #2c3e50; }
+        h2 { color: #34495e; margin-top: 30px; }
+        img { max-width: 100%; margin: 20px 0; }
+        table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: center; }
+        th { background-color: #3498db; color: white; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 Preprocessamento</h1>
+        
+        <h2>Metodos Aplicados</h2>
+        <table>
+            <tr><th>Metodo</th><th>Formula</th><th>Resultado</th></tr>
+            <tr><td>StandardScaler</td><td>z = (x - mean) / std</td><td>Media=0, Std=1</td></tr>
+            <tr><td>MinMaxScaler</td><td>x_norm = (x - min) / (max - min)</td><td>Range=[0,1]</td></tr>
+        </table>
+        
+        <h2>Comparacao</h2>
+        <img src="../imgs/preprocessing_comparison.png" alt="Preprocessing Comparison">
+        
+        <h2>Arquivos Salvos</h2>
+        <ul>
+            <li>scaler_standard.pkl - Modelo StandardScaler</li>
+            <li>X_standard.pkl - Dados padronizados</li>
+            <li>scaler_minmax.pkl - Modelo MinMaxScaler</li>
+            <li>X_minmax.pkl - Dados normalizados [0,1]</li>
+        </ul>
+    </div>
+</body>
+</html>

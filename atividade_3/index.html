@@ -1,0 +1,2199 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planejamento: Clustering de Olhos - Perfil Biométrico</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-900: #0f172a;
+            --primary-800: #1e293b;
+            --primary-700: #334155;
+            --primary-600: #475569;
+            --primary-500: #64748b;
+            --primary-400: #94a3b8;
+            --primary-300: #cbd5e1;
+            --primary-200: #e2e8f0;
+            --primary-100: #f1f5f9;
+            --primary-50: #f8fafc;
+            
+            --accent-500: #3b82f6;
+            --accent-400: #60a5fa;
+            --accent-300: #93c5fd;
+            --accent-600: #2563eb;
+            
+            --success-500: #10b981;
+            --success-400: #34d399;
+            --warning-500: #f59e0b;
+            --warning-400: #fbbf24;
+            
+            --neutral-900: #111827;
+            --neutral-800: #1f2937;
+            --neutral-700: #374151;
+            --neutral-600: #4b5563;
+            --neutral-500: #6b7280;
+            --neutral-400: #9ca3af;
+            --neutral-300: #d1d5db;
+            --neutral-200: #e5e7eb;
+            --neutral-100: #f3f4f6;
+            
+            --white: #ffffff;
+            --bg-light: #f8fafc;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+            
+            --font-display: 'DM Serif Display', serif;
+            --font-body: 'IBM Plex Sans', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --radius-xl: 16px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--bg-light);
+            color: var(--neutral-800);
+            line-height: 1.6;
+            font-size: 16px;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--neutral-200);
+            z-index: 1000;
+            padding: 0 2rem;
+        }
+
+        .nav-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 64px;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .nav-logo {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--accent-500), var(--accent-600));
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-logo svg {
+            width: 20px;
+            height: 20px;
+            color: white;
+        }
+
+        .nav-title {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            color: var(--primary-900);
+        }
+
+        .nav-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.375rem 0.875rem;
+            background: var(--warning-400);
+            color: var(--neutral-900);
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-radius: 100px;
+        }
+
+        .nav-status::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: var(--neutral-900);
+            border-radius: 50%;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 0.25rem;
+            overflow-x: auto;
+            max-width: 70%;
+            padding: 0.5rem 0;
+        }
+
+        .nav-link {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.5rem 0.75rem;
+            color: var(--neutral-600);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            border-radius: var(--radius-md);
+            white-space: nowrap;
+            transition: all 0.2s ease;
+        }
+
+        .nav-link:hover {
+            background: var(--neutral-100);
+            color: var(--accent-600);
+        }
+
+        /* Main Content */
+        .main {
+            padding-top: 64px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-900) 0%, var(--primary-800) 100%);
+            color: white;
+            padding: 5rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.5;
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(59, 130, 246, 0.2);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 100px;
+            font-size: 0.875rem;
+            color: var(--accent-300);
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 {
+            font-family: var(--font-display);
+            font-size: 3.5rem;
+            font-weight: 400;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 span {
+            color: var(--accent-400);
+        }
+
+        .hero-description {
+            font-size: 1.25rem;
+            color: var(--primary-300);
+            max-width: 700px;
+            line-height: 1.7;
+        }
+
+        .hero-meta {
+            display: flex;
+            gap: 2rem;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .hero-meta-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .hero-meta-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--primary-400);
+        }
+
+        .hero-meta-value {
+            font-size: 1rem;
+            font-weight: 500;
+            color: white;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        /* Section Styles */
+        .section {
+            margin-bottom: 4rem;
+            scroll-margin-top: 100px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .section-number {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--accent-500), var(--accent-600));
+            color: white;
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--radius-lg);
+            flex-shrink: 0;
+        }
+
+        .section-title-group {
+            flex: 1;
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            color: var(--primary-900);
+            margin-bottom: 0.25rem;
+        }
+
+        .section-subtitle {
+            font-size: 1rem;
+            color: var(--neutral-500);
+        }
+
+        /* Cards */
+        .card {
+            background: white;
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-md);
+            overflow: hidden;
+        }
+
+        .card-body {
+            padding: 2rem;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card-grid-3 {
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        }
+
+        /* Info Box */
+        .info-box {
+            padding: 1.5rem;
+            border-radius: var(--radius-lg);
+            margin: 1.5rem 0;
+        }
+
+        .info-box-note {
+            background: #fef3c7;
+            border-left: 4px solid var(--warning-500);
+        }
+
+        .info-box-tip {
+            background: #d1fae5;
+            border-left: 4px solid var(--success-500);
+        }
+
+        .info-box-warning {
+            background: #fee2e2;
+            border-left: 4px solid #ef4444;
+        }
+
+        .info-box-info {
+            background: var(--accent-300);
+            background: rgba(147, 197, 253, 0.3);
+            border-left: 4px solid var(--accent-500);
+        }
+
+        .info-box-title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: var(--neutral-800);
+        }
+
+        .info-box-content {
+            color: var(--neutral-700);
+            font-size: 0.9375rem;
+        }
+
+        /* Typography */
+        h3 {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            color: var(--primary-900);
+            margin-bottom: 1rem;
+        }
+
+        h4 {
+            font-family: var(--font-body);
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--primary-800);
+            margin-bottom: 0.75rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            color: var(--neutral-700);
+        }
+
+        ul, ol {
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+            color: var(--neutral-700);
+        }
+
+        li::marker {
+            color: var(--accent-500);
+        }
+
+        strong {
+            color: var(--neutral-800);
+            font-weight: 600;
+        }
+
+        /* Code Blocks */
+        .code-block {
+            background: var(--primary-900);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+        }
+
+        .code-block pre {
+            font-family: var(--font-mono);
+            font-size: 0.875rem;
+            color: #e2e8f0;
+            line-height: 1.7;
+        }
+
+        .code-block .comment {
+            color: var(--primary-400);
+        }
+
+        .code-block .keyword {
+            color: #c084fc;
+        }
+
+        .code-block .string {
+            color: #34d399;
+        }
+
+        .code-block .function {
+            color: #60a5fa;
+        }
+
+        .code-block .number {
+            color: #fbbf24;
+        }
+
+        /* Variable Grid */
+        .variable-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .variable-card {
+            background: var(--neutral-100);
+            border-radius: var(--radius-lg);
+            padding: 1.25rem;
+            border: 1px solid var(--neutral-200);
+            transition: all 0.2s ease;
+        }
+
+        .variable-card:hover {
+            border-color: var(--accent-400);
+            box-shadow: var(--shadow-md);
+        }
+
+        .variable-name {
+            font-family: var(--font-mono);
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--accent-600);
+            margin-bottom: 0.5rem;
+        }
+
+        .variable-full {
+            font-size: 0.875rem;
+            color: var(--neutral-600);
+            margin-bottom: 0.75rem;
+        }
+
+        .variable-desc {
+            font-size: 0.9375rem;
+            color: var(--neutral-700);
+        }
+
+        /* Step Flow */
+        .step-flow {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            margin: 1.5rem 0;
+        }
+
+        .step {
+            display: flex;
+            gap: 1.5rem;
+            position: relative;
+        }
+
+        .step-indicator {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .step-number {
+            width: 36px;
+            height: 36px;
+            background: var(--accent-500);
+            color: white;
+            font-weight: 600;
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .step-line {
+            width: 2px;
+            flex: 1;
+            background: var(--neutral-300);
+            min-height: 40px;
+        }
+
+        .step:last-child .step-line {
+            display: none;
+        }
+
+        .step-content {
+            padding-bottom: 2rem;
+            flex: 1;
+        }
+
+        .step-title {
+            font-weight: 600;
+            color: var(--neutral-800);
+            margin-bottom: 0.5rem;
+        }
+
+        .step-desc {
+            color: var(--neutral-600);
+            font-size: 0.9375rem;
+        }
+
+        /* Comparison Table */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.9375rem;
+        }
+
+        .comparison-table th {
+            background: var(--primary-800);
+            color: white;
+            font-weight: 600;
+            text-align: left;
+            padding: 1rem;
+        }
+
+        .comparison-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--neutral-200);
+            vertical-align: top;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background: var(--neutral-50);
+        }
+
+        .comparison-table tr:hover {
+            background: var(--accent-300);
+            background: rgba(147, 197, 253, 0.2);
+        }
+
+        /* Flow Diagram */
+        .flow-diagram {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: var(--neutral-100);
+            border-radius: var(--radius-lg);
+        }
+
+        .flow-item {
+            padding: 0.75rem 1.25rem;
+            background: white;
+            border: 2px solid var(--neutral-300);
+            border-radius: var(--radius-md);
+            font-weight: 500;
+            font-size: 0.875rem;
+            color: var(--neutral-700);
+        }
+
+        .flow-arrow {
+            color: var(--accent-500);
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+
+        /* Method Card */
+        .method-card {
+            background: white;
+            border-radius: var(--radius-xl);
+            padding: 1.5rem;
+            border: 1px solid var(--neutral-200);
+            transition: all 0.2s ease;
+        }
+
+        .method-card:hover {
+            border-color: var(--accent-400);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .method-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--accent-500), var(--accent-600));
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+
+        .method-icon svg {
+            width: 24px;
+            height: 24px;
+            color: white;
+        }
+
+        .method-title {
+            font-weight: 600;
+            color: var(--neutral-800);
+            margin-bottom: 0.5rem;
+        }
+
+        .method-desc {
+            font-size: 0.875rem;
+            color: var(--neutral-600);
+        }
+
+        /* Badge */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.625rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            border-radius: 100px;
+            background: var(--neutral-200);
+            color: var(--neutral-700);
+        }
+
+        .badge-primary {
+            background: var(--accent-500);
+            color: white;
+        }
+
+        .badge-success {
+            background: var(--success-500);
+            color: white;
+        }
+
+        .badge-warning {
+            background: var(--warning-500);
+            color: var(--neutral-900);
+        }
+
+        /* Divider */
+        .divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--neutral-300), transparent);
+            margin: 3rem 0;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--primary-900);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .footer-text {
+            font-size: 0.875rem;
+            color: var(--primary-400);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-meta {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .variable-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section {
+            animation: fadeIn 0.5s ease forwards;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-inner">
+            <div class="nav-brand">
+                <div class="nav-logo">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                    </svg>
+                </div>
+                <span class="nav-title">Eye Profile Clustering</span>
+            </div>
+            <div class="nav-status">Em Planejamento</div>
+        </div>
+        <div class="nav-links">
+            <a href="#introducao" class="nav-link">01. Introdução</a>
+            <a href="#entendimento" class="nav-link">02. Entendimento dos Dados</a>
+            <a href="#eda" class="nav-link">03. EDA</a>
+            <a href="#preprocessamento" class="nav-link">04. Pré-processamento</a>
+            <a href="#clusters" class="nav-link">05. Definição de K</a>
+            <a href="#kmeans" class="nav-link">06. K-Means</a>
+            <a href="#dbscan" class="nav-link">07. DBSCAN</a>
+            <a href="#hierarquico" class="nav-link">08. Hierárquico</a>
+            <a href="#validacao" class="nav-link">09. Validação</a>
+            <a href="#conclusoes" class="nav-link">10. Conclusões</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                </svg>
+                Knowledge Engineering
+            </div>
+            <h1>Clustering de <span>Olhos</span><br>Perfil Biométrico</h1>
+            <p class="hero-description">
+                Análise de clustering para identificação de perfis biométricos oculares utilizando variáveis de biometria corneal. Este projeto aplica técnicas de machine learning não supervisionado para segmentar olhos em grupos distintos.
+            </p>
+            <div class="hero-meta">
+                <div class="hero-meta-item">
+                    <span class="hero-meta-label">Dataset</span>
+                    <span class="hero-meta-value">Barrett II Eyes</span>
+                </div>
+                <div class="hero-meta-item">
+                    <span class="hero-meta-label">Variáveis</span>
+                    <span class="hero-meta-value">5 Biometricas</span>
+                </div>
+                <div class="hero-meta-item">
+                    <span class="hero-meta-label">Algoritmos</span>
+                    <span class="hero-meta-value">K-Means, DBSCAN, Hierárquico</span>
+                </div>
+                <div class="hero-meta-item">
+                    <span class="hero-meta-label">Status</span>
+                    <span class="hero-meta-value">Em Planejamento</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+            <!-- Section 01: Introduction -->
+            <section id="introducao" class="section">
+                <div class="section-header">
+                    <div class="section-number">01</div>
+                    <div class="section-title-group">
+                        <h2 class="section-title">Introdução</h2>
+                        <p class="section-subtitle">Contexto do problema e objetivos da análise</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <h3>Contexto de Negócio</h3>
+                        <p>
+                            O serviço de <strong>Knowledge Engineering</strong> oferece análise especializada de dados biométricos para aplicações oftalmológicas. Neste projeto, temos como objetivo identificar <strong>perfis oculares</strong> baseados em medidas biométricas da córnea e do segmento anterior do olho.
+                        </p>
+                        <p>
+                            A identificação de grupos naturais nos dados biométricos permite:
+                        </p>
+                        <ul>
+                            <li>Classificação automática de pacientes em perfis clínicos distintos</li>
+                            <li>Suporte à decisão cirúrgica para procedimentos refrativos e de cataracts</li>
+                            <li>Personalização de lentes intraoculares (LIOs) baseadas no perfil biométrico</li>
+                            <li>Identificação de casos atípicos que requerem atenção especial</li>
+                        </ul>
+
+                        <div class="info-box info-box-note">
+                            <div class="info-box-title">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                Nota Importante
+                            </div>
+                            <div class="info-box-content">
+                                A coluna <strong>"Correto"</strong> contém a classificação original e <strong>não será utilizada</strong> para o processo de clustering. Esta informação serve apenas como descrição complementar para interpretação dos perfis identificados posteriormente.
+                            </div>
+                        </div>
+
+                        <h3>As 5 Variáveis Biométricas</h3>
+                        <p>
+                            Utilizamos cinco medidas biométricas do olho que são fundamentais para caracterização do perfil corneano:
+                        </p>
+
+                        <div class="variable-grid">
+                            <div class="variable-card">
+                                <div class="variable-name">AL</div>
+                                <div class="variable-full">Axial Length (Comprimento Axial)</div>
+                                <div class="variable-desc">
+                                    Distância entre a córnea e a retina, medida em milímetros. Indica o tamanho total do olho e é crucial para cálculo de lentes intraoculares.
+                                </div>
+                            </div>
+                            <div class="variable-card">
+                                <div class="variable-name">ACD</div>
+                                <div class="variable-full">Anterior Chamber Depth (Profundidade de Câmara Anterior)</div>
+                                <div class="variable-desc">
+                                    Distância entre a córnea e o cristalino. Influencia a profundidade da câmara anterior e é importante para cirurgia de cataracts.
+                                </div>
+                            </div>
+                            <div class="variable-card">
+                                <div class="variable-name">WTW</div>
+                                <div class="variable-full">White-to-White Distance (Distância Branco a Branco)</div>
+                                <div class="variable-desc">
+                                    Medida horizontal da córnea, de uma borda escleral a outra. Utilizada para dimensionamento de implantes e lentes de contato.
+                                </div>
+                            </div>
+                            <div class="variable-card">
+                                <div class="variable-name">K1</div>
+                                <div class="variable-full">Curvatura do Meridiano Menos Curvo</div>
+                                <div class="variable-desc">
+                                    Representa a curvatura da córnea no meridiano mais plano. Medida em dioptrias (D) ou milímetros de raio. Primeiro valor de ceratometria.
+                                </div>
+                            </div>
+                            <div class="variable-card">
+                                <div class="variable-name">K2</div>
+                                <div class="variable-full">Curvatura do Meridiano Mais Curvo</div>
+                                <div class="variable-desc">
+                                    Representa a curvatura da córnea no meridiano mais íngreme. Medida em dioptrias (D) ou milímetros de raio. Segundo valor de ceratometria.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="info-box info-box-info">
+                            <div class="info-box-title">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                                </svg>
+                                Referência Anatômica
+                            </div>
+                            <div class="info-box-content">
+                                Para uma explicação detalhada sobre a anatomia do olho e as medições biométricas, consulte a documentação técnica disponível em: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5306287/" target="_blank" rel="noopener">NCBI - Ocular Biometry</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="divider"></div>
+
+            <!-- Section 02: Data Understanding -->
+            <section id="entendimento" class="section">
+                <div class="section-header">
+                    <div class="section-number">02</div>
+                    <div class="section-title-group">
+                        <h2 class="section-title">Entendimento dos Dados</h2>
+                        <p class="section-subtitle">Visão geral do dataset e estrutura dos dados</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <h3>Visão Geral do Dataset</h3>
+                        <p>
+                            O dataset utilizado é composto por medições biométricas de olhos humanos, originalmente utilizado para o cálculo de lentes intraoculares Barrett II. Cada registro representa um olho individual, com suas características biométricas medidas.
+                        </p>
+
+                        <div class="card-grid">
+                            <div class="method-card">
+                                <div class="method-title">Formato dos Dados</div>
+                                <div class="method-desc">
+                                    Arquivo CSV com separador ponto-e-vírgula (;). Formato numérico brasileiro: vírgula (,) como separador decimal.
+                                </div>
+                            </div>
+                            <div class="method-card">
+                                <div class="method-title">Tamanho Esperado</div>
+                                <div class="method-desc">
+                                    Aproximadamente <strong>1.193 olhos</strong> no conjunto de dados, representando casos clínicos diversos.
+                                </div>
+                            </div>
+                            <div class="method-card">
+                                <div class="method-title">Estrutura</div>
+                                <div class="method-desc">
+                                    6 colunas: 5 variáveis biométricas (AL, ACD, WTW, K1, K2) + coluna de classificação original (Correto).
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3>Descrição das Variáveis</h3>
+                        <table class="comparison-table">
+                            <thead>
+                                <tr>
+                                    <th>Variável</th>
+                                    <th>Tipo</th>
+                                    <th>Descrição</th>
+                                    <th>Unidade</th>
+                                    <th>Range Esperado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>AL</strong></td>
+                                    <td><span class="badge">Numérico</span></td>
+                                    <td>Comprimento axial do olho</td>
+                                    <td>mm</td>
+                                    <td>20.0 - 30.0</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>ACD</strong></td>
+                                    <td><span class="badge">Numérico</span></td>
+                                    <td>Profundidade de câmara anterior</td>
+                                    <td>mm</td>
+                                    <td>2.0 - 5.0</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>WTW</strong></td>
+                                    <td><span class="badge">Numérico</span></td>
+                                    <td>Distância branco a branco</td>
+                                    <td>mm</td>
+                                    <td>10.0 - 14.0</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>K1</strong></td>
+                                    <td><span class="badge">Numérico</span></td>
+                                    <td>Curvatura menos curva</td>
+                                    <td>D</td>
+                                    <td>38.0 - 48.0</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>K2</strong></td>
+                                    <td><span class="badge">Numérico</span></td>
+                                    <td>Curvatura mais curva</td>
+                                    <td>D</td>
+                                    <td>38.0 - 52.0</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Correto</strong></td>
+                                    <td><span class="badge">Categórico</span></td>
+                                    <td>Classificação original (uso complementar)</td>
+                                    <td>-</td>
+                                    <td>Perfisocular</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <h3>Formato Especial: Separadores</h3>
+                        <p>
+                            O dataset utiliza convenções brasileiras para formatação numérica:
+                        </p>
+
+                        <div class="code-block">
+                            <pre><span class="comment"># Exemplo de linha do dataset</span>
+<span class="string">AL;ACD;WTW;K1;K2;Correto</span>
+<span class="string">23,5;3,2;11,8;43,25;44,75;Normal</span>
+<span class="string">25,1;2,8;12,0;41,50;42,25;Longo</span>
+
+<span class="comment">#留意: vírgula (,) como separador decimal</span>
+<span class="comment"># ponto e vírgula (;) como separador de campos</span></pre>
+                        </div>
+
+                        <div class="info-box info-box-tip">
+                            <div class="info-box-title">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                                </svg>
+                                Dica de Processamento
+                            </div>
+                            <div class="info-box-content">
+                                Ao carregar os dados em Python, será necessário especificar o separador correto e converter o formato decimal brasileiro para o padrão internacional (ponto).
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="divider"></div>
+
+            <!-- Section 03: EDA -->
+            <section id="eda" class="section">
+                <div class="section-header">
+                    <div class="section-number">03</div>
+                    <div class="section-title-group">
+                        <h2 class="section-title">Análise Exploratória de Dados (EDA)</h2>
+                        <p class="section-subtitle">Exploração inicial para entender a distribuição e características</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <h3>O que é EDA e Por que Fazer</h3>
+                        <p>
+                            A <strong>Análise Exploratória de Dados (EDA)</strong> é uma abordagem inicial que nos permite compreender a estrutura dos dados antes de aplicar algoritmos de machine learning. Para clustering, esta etapa é fundamental para:
+                        </p>
+                        <ul>
+                            <li>Identificar padrões e distribuições nas variáveis biométricas</li>
+                            <li>Detectar valores atípicos (outliers) que podem influenciar os resultados</li>
+                            <li>Compreender correlações entre variáveis</li>
+                            <li>Validar suposições sobre a natureza dos dados</li>
+                            <li>Guiar decisões sobre pré-processamento adequado</li>
+                        </ul>
+
+                        <h3>Medidas Estatísticas</h3>
+                        <p>
+                            Calcularemos as seguintes estatísticas descritivas para cada variável:
+                        </p>
+
+                        <div class="card-grid">
+                            <div class="method-card">
+                                <div class="method-title">Tendência Central</div>
+                                <div class="method-desc">
+                                    <ul>
+                                        <li><strong>Média (Mean)</strong>: Valor médio dos dados</li>
+                                        <li><strong>Mediana (Median)</strong>: Valor central</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="method-card">
+                                <div class="method-title">Dispersão</div>
+                                <div class="method-desc">
+                                    <ul>
+                                        <li><strong>Desvio Padrão (Std)</strong>: Variabilidade dos dados</li>
+                                        <li><strong>Variância</strong>: Quadrado do desvio padrão</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="method-card">
+                                <div class="method-title">Extremos</div>
+                                <div class="method-desc">
+                                    <ul>
+                                        <li><strong>Mínimo/Máximo</strong>: Valores de fronteira</li>
+                                        <li><strong>Amplitude</strong>: Diferença entre max e min</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="method-card">
+                                <div class="method-title">Distribuição</div>
+                                <div class="method-desc">
+                                    <ul>
+                                        <li><strong>Quartis (25%, 50%, 75%)</strong>: Divisões da distribuição</li>
+                                        <li><strong>Assimetria/Icrtose</strong>: Forma da distribuição</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3>Visualizações que Criaremos</h3>
+                        <p>
+                            Serão gerados os seguintes gráficos para análise visual:
+                        </p>
+
+                        <div class="card-grid card-grid-3">
+                            <div class="method-card">
+                                <div class="method-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                                    </svg>
+                                </div>
+                                <div class="method-title">Histogramas</div>
+                                <div class="method-desc">
+                                    Distribuição de cada variável individualmente. Identifica multimodalidade.
+                                </div>
+                            </div>
+                            <div class="method-card">
+                                <div class="method-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                                    </svg>
+                                </div>
+                                <div class="method-title">Boxplots</div>
+                                <div class="method-desc">
+                                    Visualização de outliers e comparação entre variáveis.
+                                </div>
+                            </div>
+                            <div class="method-card">
+                                <div class="method-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />
+                                    </svg>
+                                </div>
+                                <div class="method-title">Correlation Heatmap</div>
+                                <div class="method-desc">
+                                    Mapa de correlação entre todas as variáveis biométricas.
+                                </div>
+                            </div>
+                            <div class="method-card">
+                                <div class="method-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+                                    </svg>
+                                </div>
+                                <div class="method-title">Pairplot</div>
+                                <div class="method-desc">
+                                    Scatter plots entre pares de variáveis. Revela relações e clusters naturais.
+                                </div>
+                            </div>
+                            <div class="method-card">
+                                <div class="method-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                </div>
+                                <div class="method-title">Time Series (se aplicável)</div>
+                                <div class="method-desc">
+                                    Evolução temporal dos dados, se houver ordem temporal.
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3>O que Buscamos na EDA</h3>
+                        <ul>
+                            <li><strong>Multimodalidade</strong>: Indicação de grupos naturais nos dados</li>
+                            <li><strong>Outliers</strong>: Valores extremos que podem ser erros ou casos especiais</li>
+                            <li><strong>Correlacões</strong>: Variáveis que variam juntas (ex: K1 e K2)</li>
+                            <li><strong>Escala</strong>: Diferenças significativas entre ranges das variáveis</li>
+                            <li><strong>Valores faltantes</strong>: Necessidade de imputação</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <div class="divider"></div>
+
+            <!-- Section 04: Preprocessing -->
+            <section id="preprocessamento" class="section">
+                <div class="section-header">
+                    <div class="section-number">04</div>
+                    <div class="section-title-group">
+                        <h2 class="section-title">Pré-processamento de Dados</h2>
+                        <p class="section-subtitle">Normalização e preparação para algoritmos de clustering</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <h3>Por que Pré-processamento é Crítico</h3>
+                        <p>
+                            Algoritmos de clustering são <strong>extremamente sensíveis à escala das variáveis</strong>. Quando variáveis têm escalas diferentes, aquelas com valores maiores dominam o cálculo de distâncias, ignorando variáveis potencialmente mais importantes.
+                        </p>
+
+                        <div class="info-box info-box-warning">
+                            <div class="info-box-title">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                                </svg>
+                                Exemplo Prático
+                            </div>
+                            <div class="info-box-content">
+                                AL (20-30 mm) tem valores muito maiores que K1 (38-48 D). Sem normalização, a distância euclidiana seria dominada pelo AL, e K1 seria quase ignorado.
+                            </div>
+                        </div>
+
+                        <h3>Métodos de Normalização</h3>
+
+                        <div class="card-grid">
+                            <div class="method-card">
+                                <div class="method-title">StandardScaler (Z-Score)</div>
+                                <div class="method-desc">
+                                    <p><strong>O que faz:</strong> Transforma os dados para média 0 e desvio padrão 1.</p>
+                                    <p><strong>Fórmula:</strong> z = (x - μ) / σ</p>
+                                    <p><strong>Quando usar:</strong> Quando os dados seguem distribuição normal ou quando queremos identificar outliers.</p>
+                                </div>
+                            </div>
+                            <div class="method-card">
+                                <div class="method-title">MinMaxScaler (0-1)</div>
+                                <div class="method-desc">
+                                    <p><strong>O que faz:</strong> Escalona os dados para o intervalo [0, 1].</p>
+                                    <p><strong>Fórmula:</strong> x_norm = (x - min) / (max - min)</p>
+                                    <p><strong>Quando usar:</strong> Quando conhecemos os limites dos dados e queremos preservar a forma da distribuição.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="code-block">
+                            <pre><span class="comment"># StandardScaler - Z-Score Normalization</span>
+<span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> StandardScaler
+
+scaler_standard = StandardScaler()
+X_standard = scaler_standard.fit_transform(X)
+
+<span class="comment"># MinMaxScaler - 0 to 1 Normalization</span>
+<span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> MinMaxScaler
+
+scaler_minmax = MinMaxScaler()
+X_minmax = scaler_minmax.fit_transform(X)
+
+<span class="comment"># Comparação: dados originais vs normalizados</span>
+print(f<span class="string">"Original: mean={X.mean():.2f}, std={X.std():.2f}"</span>)
+print(f<span class="string">"Standard: mean={X_standard.mean():.2f}, std={X_standard.std():.2f}"</span>)
+print(f<span class="string">"MinMax: mean={X_minmax.mean():.2f}, std={X_minmax.std():.2f}"</span>)</pre>
+                        </div>
+
+                        <h3>Abordagem Comparativa</h3>
+                        <p>
+                            Para garantir robustness, testaremos <strong>ambas as normalizações</strong> com todos os algoritmos:
+                        </p>
+
+                        <div class="flow-diagram">
+                            <div class="flow-item">Dados Originais</div>
+                            <span class="flow-arrow">→</span>
+                            <div class="flow-item">StandardScaler</div>
+                            <span class="flow-arrow">→</span>
+                            <div class="flow-item">X_standard</div>
+                            <span class="flow-arrow">→</span>
+                            <div class="flow-item">Algoritmos</div>
+                        </div>
+                        <div class="flow-diagram">
+                            <div class="flow-item">Dados Originais</div>
+                            <span class="flow-arrow">→</span>
+                            <div class="flow-item">MinMaxScaler</div>
+                            <span class="flow-arrow">→</span>
+                            <div class="flow-item">X_minmax</div>
+                            <span class="flow-arrow">→</span>
+                            <div class="flow-item">Algoritmos</div>
+                        </div>
+
+                        <div class="info-box info-box-tip">
+                            <div class="info-box-title">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                                </svg>
+                                Saída Esperada
+                            </div>
+                            <div class="info-box-content">
+                                Serão gerados dois conjuntos de dados normalizados: <strong>X_standard.pkl</strong> e <strong>X_minmax.pkl</strong>,along com seus respectivos scalers salvos.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="divider"></div>
+
+            <!-- Section 05: Number of Clusters -->
+            <section id="clusters" class="section">
+                <div class="section-header">
+                    <div class="section-number">05</div>
+                    <div class="section-title-group">
+                        <h2 class="section-title">Definição do Número de Clusters (K)</h2>
+                        <p class="section-subtitle">Métodos para determinar o número ótimo de grupos</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <h3>O Desafio</h3>
+                        <p>
+                            Em problemas reais de clustering, <strong>não sabemos quantos grupos existem</strong> nos dados. Diferente da classificação supervisionada, onde temos labels, no clustering não supervisionado precisamos descobrir a estrutura.
+                        </p>
+
+                        <div class="info-box info-box-note">
+                            <div class="info-box-title">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                Faixa de Teste
+                            </div>
+                            <div class="info-box-content">
+                                Testaremos valores de K de <strong>2 a 15</strong> para cada método. Este range cobre desde grupos binários até segmentações mais granulares.
+                            </div>
+                        </div>
+
+                        <h3>Métodos para Encontrar K Ótimo</h3>
+
+                        <div class="card-grid card-grid-3">
+                            <div class="method-card">
+                                <div class="method-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" />
+                                    </svg>
+                                </div>
+                                <div class="method-title">Elbow Method (Cotovelo)</div>
+                                <div class="method-desc">
+                                    Plota a inércia (soma das distâncias quadráticas) vs K. O "cotovelo" indica K ótimo onde a adição de mais clusters não reduz significativamente a inércia.
+                                </div>
+                            </div>
+                            <div class="method-card">
+                                <div class="method-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                                    </svg>
+                                </div>
+                                <div class="method-title">Silhouette Score</div>
+                                <div class="method-desc">
+                                    Mede quão similar um ponto é ao seu próprio cluster comparado a outros clusters. Varia de -1 a 1. Valores mais altos indicam melhor separação.
+                                </div>
+                            </div>
+                            <div class="method-card">
+                                <div class="method-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                                    </svg>
+                                </div>
+                                <div class="method-title">Gap Statistic</div>
+                                <div class="method-desc">
+                                    Compara a dispersão intra-cluster com a esperada sob uma distribuição nula (uniforme). O K que maximiza o gap é selecionado.
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3>Visualizações que Geraremos</h3>
+                        <table class="comparison-table">
+                            <thead>
+                                <tr>
+                                    <th>Método</th>
+                                    <th>Gráfico</th>
+                                    <th>O que Procurar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Elbow Method</strong></td>
+                                    <td>Line plot: K vs Inércia</td>
+                                    <td>Ponto de "cotovelo" onde a curva dobra</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Silhouette Score</strong></td>
+                                    <td>Line plot: K vs Silhouette</td>
+                                    <td>Pico mais alto (mais próximo de 1)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Gap Statistic</strong></td>
+                                    <td>Line plot: K vs Gap</td>
+                                    <td>Primeiro K onde Gap(K) ≥ Gap(K+1) - s(K+1)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="code-block">
+                            <pre><span class="comment"># Métricas para determinar K ótimo</span>
+<span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> silhouette_score
+<span class="keyword">from</span> sklearn.cluster <span class="keyword">import</span> KMeans
+
+<span class="comment"># Testando K de 2 a 15</span>
+k_range = range(<span class="number">2</span>, <span class="number">16</span>)
+silhouette_scores = []
+inertias = []
+
+<span class="keyword">for</span> k <span class="keyword">in</span> k_range:
+    kmeans = KMeans(n_clusters=k, random_state=<span class="number">42</span>, n_init=<span class="number">10</span>)
+    labels = kmeans.fit_predict(X)
+    silhouette_scores.append(silhouette_score(X, labels))
+    inertias.append(kmeans.inertia_)
+
+<span class="comment"># Identificar melhor K baseado em silhouette</span>
+best_k = k_range[np.argmax(silhouette_scores)]
+print(f<span class="string">"Melhor K pelo Silhouette Score: {best_k}"</span>)</pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="divider"></div>
+
+            <!-- Section 06: K-Means -->
+            <section id="kmeans" class="section">
+                <div class="section-header">
+                    <div class="section-number">06</div>
+                    <div class="section-title-group">
+                        <h2 class="section-title">K-Means Clustering</h2>
+                        <p class="section-subtitle">Algoritmo de partição mais utilizado</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <h3>Como o K-Means Funciona</h3>
+                        <p>
+                            K-Means é um algoritmo de <strong>partição</strong> que divide os dados em K grupos disjuntos. É computacionalmente eficiente e amplamente utilizado.
+                        </p>
+
+                        <div class="step-flow">
+                            <div class="step">
+                                <div class="step-indicator">
+                                    <div class="step-number">1</div>
+                                    <div class="step-line"></div>
+                                </div>
+                                <div class="step-content">
+                                    <div class="step-title">Inicialização</div>
+                                    <div class="step-desc">
+                                        K centroides são inicializados (por padrão, usando k-means++ que distribui os centros de forma inteligente).
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="step">
+                                <div class="step-indicator">
+                                    <div class="step-number">2</div>
+                                    <div class="step-line"></div>
+                                </div>
+                                <div class="step-content">
+                                    <div class="step-title">Atribuição de Clusters</div>
+                                    <div class="step-desc">
+                                        Cada ponto é atribuído ao cluster cujo centróide está mais próximo (distância euclidiana).
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="step">
+                                <div class="step-indicator">
+                                    <div class="step-number">3</div>
+                                    <div class="step-line"></div>
+                                </div>
+                                <div class="step-content">
+                                    <div class="step-title">Atualização</div>
+                                    <div class="step-desc">
+                                        Os centroides são recalculados como a média de todos os pontos atribuídos ao cluster.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="step">
+                                <div class="step-indicator">
+                                    <div class="step-number">4</div>
+                                    <div class="step-line"></div>
+                                </div>
+                                <div class="step-content">
+                                    <div class="step-title">Iteração</div>
+                                    <div class="step-desc">
+                                        Os passos 2 e 3 se repetem até que os centroides não mudem significativamente ou o número máximo de iterações seja atingido.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3>Parâmetros Principais</h3>
+                        <table class="comparison-table">
+                            <thead>
+                                <tr>
+                                    <th>Parâmetro</th>
+                                    <th>Valor Recomendado</th>
+                                    <th>Descrição</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>n_clusters</strong></td>
+                                    <td>Definido via Elbow/Silhouette</td>
+                                    <td>Número de clusters</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>init</strong></td>
+                                    <td>'k-means++' (padrão)</td>
+                                    <td>Método de inicialização inteligente</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>n_init</strong></td>
+                                    <td>10</td>
+                                    <td>Número de inicializações independentes</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>random_state</strong></td>
+                                    <td>42</td>
+                                    <td>Reprodutibilidade</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>max_iter</strong></td>
+                                    <td>300</td>
+                                    <td>Máximo de iterações por execução</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="code-block">
+                            <pre><span class="comment"># K-Means Clustering</span>
+<span class="keyword">from</span> sklearn.cluster <span class="keyword">import</span> KMeans
+
+<span class="comment"># Criar e treinar modelo</span>
+kmeans = KMeans(
+    n_clusters=<span class="number">5</span>,
+    init=<span class="string">'k-means++'</span>,
+    n_init=<span class="number">10</span>,
+    random_state=<span class="number">42</span>,
+    max_iter=<span class="number">300</span>
+)
+
+<span class="comment"># Ajustar e predizer</span>
+cluster_labels = kmeans.fit_predict(X_normalized)
+centroids = kmeans.cluster_centers_
+
+<span class="comment"># Métricas de validação</span>
+<span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> silhouette_score, calinski_harabasz_score
+
+sil = silhouette_score(X_normalized, cluster_labels)
+ch = calinski_harabasz_score(X_normalized, cluster_labels)
+inertia = kmeans.inertia_
+
+print(f<span class="string">"Silhouette Score: {sil:.4f}"</span>)
+print(f<span class="string">"Calinski-Harabasz Index: {ch:.4f}"</span>)
+print(f<span class="string">"Inertia: {inertia:.4f}"</span>)</pre>
+                        </div>
+
+                        <h3>Visualização 2D</h3>
+                        <p>
+                            Para visualização, utilizaremos técnicas de redução de dimensionalidade:
+                        </p>
+
+                        <div class="card-grid">
+                            <div class="method-card">
+                                <div class="method-title">PCA</div>
+                                <div class="method-desc">
+                                    Redução para 2 componentes principais. Preserva a maior parte da variância global.
+                                </div>
+                            </div>
+                            <div class="method-card">
+                                <div class="method-title">t-SNE</div>
+                                <div class="method-desc">
+                                    Projeção não-linear que preserva estruturas locais. Excelente para revelar clusters.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="info-box info-box-info">
+                            <div class="info-box-title">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                                </svg>
+                                Saída do K-Means
+                            </div>
+                            <div class="info-box-content">
+                                Serão salvos: <strong>kmeans_labels.npy</strong> (labels), visualizações PCA/t-SNE, e métricas de validação.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="divider"></div>
+
+            <!-- Section 07: DBSCAN -->
+            <section id="dbscan" class="section">
+                <div class="section-header">
+                    <div class="section-number">07</div>
+                    <div class="section-title-group">
+                        <h2 class="section-title">DBSCAN Clustering</h2>
+                        <p class="section-subtitle">Algoritmo baseado em densidade com detecção de ruído</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <h3>Diferença Fundamental do K-Means</h3>
+                        <p>
+                            DBSCAN (<strong>Density-Based Spatial Clustering of Applications with Noise</strong>) é fundamentalmente diferente do K-Means porque:
+                        </p>
+                        <ul>
+                            <li><strong>Não requer especificar K</strong> antecipadamente</li>
+                            <li><strong>Identifica outliers</strong> automaticamente (pontos com label -1)</li>
+                            <li><strong>Encontra clusters de forma arbitrária</strong> (não esféricos)</li>
+                            <li>Baseia-se em <strong>densidade</strong> em vez de centroides</li>
+                        </ul>
+
+                        <h3>Conceitos-Chave</h3>
+                        <table class="comparison-table">
+                            <thead>
+                                <tr>
+                                    <th>Parâmetro</th>
+                                    <th>Descrição</th>
+                                    <th>Como Determinar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>eps (ε)</strong></td>
+                                    <td>Raio da vizinhança ao redor de um ponto</td>
+                                    <td>Método do k-distância (gráfico)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>min_samples</strong></td>
+                                    <td>Número mínimo de pontos para formar um cluster</td>
+                                    <td>Tipicamente 5-10 × dim. dos dados</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <h3>Como Determinar eps</h3>
+                        <p>
+                            Utilizaremos o <strong>método do k-distância</strong>: para cada ponto, calcula-se a distância ao k-ésimo vizinho mais próximo. O gráfico resultante mostra as distâncias em ordem decrescente. O "cotovelo" indica um bom valor de eps.
+                        </p>
+
+                        <div class="code-block">
+                            <pre><span class="comment"># Encontrar eps usando k-distance graph</span>
+<span class="keyword">from</span> sklearn.neighbors <span class="keyword">import</span> NearestNeighbors
+<span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+k = <span class="number">5</span>  <span class="comment"># min_samples - 1</span>
+neigh = NearestNeighbors(n_neighbors=k)
+neigh.fit(X_normalized)
+distances, indices = neigh.kneighbors(X_normalized)
+
+<span class="comment"># Distância ao k-ésimo vizinho</span>
+k_distances = distances[:, k-<span class="number">1</span>]
+k_distances = np.sort(k_distances)[::-<span class="number">1</span>]
+
+<span class="comment"># Plotar e identificar "cotovelo"</span>
+<span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt
+plt.figure(figsize=(<span class="number">10</span>, <span class="number">6</span>))
+plt.plot(range(len(k_distances)), k_distances)
+plt.xlabel(<span class="string">'Pontos (ordenados)'</span>)
+plt.ylabel(<span class="string">f'Distância ao {k}º vizinho'</span>)
+plt.title(<span class="string">'Método do K-Distância para encontrar eps'</span>)
+plt.grid(<span class="number">True</span>)
+plt.savefig(<span class="string">'k_distance_plot.png'</span>)</pre>
+                        </div>
+
+                        <h3>Grid Search</h3>
+                        <p>
+                            Testaremos diferentes combinações de eps e min_samples para encontrar a melhor configuração:
+                        </p>
+
+                        <div class="code-block">
+                            <pre><span class="comment"># DBSCAN com grid search</span>
+<span class="keyword">from</span> sklearn.cluster <span class="keyword">import</span> DBSCAN
+<span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> silhouette_score
+
+eps_range = np.arange(<span class="number">0.3</span>, <span class="number">1.5</span>, <span class="number">0.1</span>)
+min_samples_range = range(<span class="number">5</span>, <span class="number">15</span>)
+
+best_score = -<span class="number">1</span>
+best_params = {}
+
+<span class="keyword">for</span> eps <span class="keyword">in</span> eps_range:
+    <span class="keyword">for</span> min_samples <span class="keyword">in</span> min_samples_range:
+        dbscan = DBSCAN(eps=eps, min_samples=min_samples)
+        labels = dbscan.fit_predict(X_normalized)
+        
+        <span class="comment"># Ignorar configurações com apenas 1 cluster ou muito ruído</span>
+        n_clusters = len(set(labels)) - (<span class="number">1</span> <span class="keyword">if</span> -<span class="number">1</span> <span class="keyword">in</span> labels <span class="keyword">else</span> <span class="number">0</span>)
+        noise_ratio = list(labels).count(-<span class="number">1</span>) / len(labels)
+        
+        <span class="keyword">if</span> n_clusters >= <span class="number">2</span> and noise_ratio < <span class="number">0.5</span>:
+            score = silhouette_score(X_normalized, labels)
+            <span class="keyword">if</span> score > best_score:
+                best_score = score
+                best_params = {'eps': eps, 'min_samples': min_samples}
+
+print(f<span class="string">"Melhores parâmetros: {best_params}"</span>)
+print(f<span class="string">"Melhor Silhouette: {best_score:.4f}"</span>)</pre>
+                        </div>
+
+                        <div class="info-box info-box-tip">
+                            <div class="info-box-title">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                                </svg>
+                                Saída do DBSCAN
+                            </div>
+                            <div class="info-box-content">
+                                Serão salvos: <strong>dbscan_labels.npy</strong> (labels onde -1 = ruído/outliers).
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="divider"></div>
+
+            <!-- Section 08: Hierarchical -->
+            <section id="hierarquico" class="section">
+                <div class="section-header">
+                    <div class="section-number">08</div>
+                    <div class="section-title-group">
+                        <h2 class="section-title">Clustering Hierárquico</h2>
+                        <p class="section-subtitle">Abordagem agglomerativa com dendrogramas</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <h3>Aglomeração Bottom-Up</h3>
+                        <p>
+                            O clustering hierárquico agglomerativo começa com cada ponto como seu próprio cluster e <strong>progressivamente une os clusters mais próximos</strong> até形成一个 único cluster (ou até K clusters).
+                        </p>
+
+                        <div class="step-flow">
+                            <div class="step">
+                                <div class="step-indicator">
+                                    <div class="step-number">1</div>
+                                    <div class="step-line"></div>
+                                </div>
+                                <div class="step-content">
+                                    <div class="step-title">Início</div>
+                                    <div class="step-desc">
+                                        Cada ponto é um cluster individual (N clusters para N pontos).
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="step">
+                                <div class="step-indicator">
+                                    <div class="step-number">2</div>
+                                    <div class="step-line"></div>
+                                </div>
+                                <div class="step-content">
+                                    <div class="step-title">Cálculo</div>
+                                    <div class="step-desc">
+                                        Calcula-se a distância entre todos os pares de clusters.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="step">
+                                <div class="step-indicator">
+                                    <div class="step-number">3</div>
+                                    <div class="step-line"></div>
+                                </div>
+                                <div class="step-content">
+                                    <div class="step-title">União</div>
+                                    <div class="step-desc">
+                                        Os dois clusters mais próximos são unidos em um novo cluster.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="step">
+                                <div class="step-indicator">
+                                    <div class="step-number">4</div>
+                                    <div class="step-line"></div>
+                                </div>
+                                <div class="step-content">
+                                    <div class="step-title">Repetição</div>
+                                    <div class="step-desc">
+                                        Repete até restar apenas K clusters ou 1 cluster.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3>Métodos de Ligação</h3>
+                        <table class="comparison-table">
+                            <thead>
+                                <tr>
+                                    <th>Método</th>
+                                    <th>Descrição</th>
+                                    <th>Quando Usar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Ward</strong></td>
+                                    <td>Minimiza a variância within-cluster</td>
+                                    <td>Clusters esféricos, bom para K-Means-like</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Complete</strong></td>
+                                    <td>Distância máxima entre pontos dos clusters</td>
+                                    <td>Clusters compactos, detecta outliers</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Average</strong></td>
+                                    <td>Média das distâncias entre todos os pares</td>
+                                    <td>Robusto a ruído</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Single</strong></td>
+                                    <td>Distância mínima entre pontos</td>
+                                    <td>Clusters alongados, mas sujeito a chaining</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="code-block">
+                            <pre><span class="comment"># Agglomerative Hierarchical Clustering</span>
+<span class="keyword">from</span> sklearn.cluster <span class="keyword">import</span> AgglomerativeClustering
+<span class="keyword">from</span> scipy.cluster.hierarchy <span class="keyword">import</span> dendrogram, linkage, cophenet
+<span class="keyword">from</span> scipy.spatial.distance <span class="keyword">import</span> pdist
+
+<span class="comment"># Testando diferentes linkages</span>
+linkage_methods = [<span class="string">'ward'</span>, <span class="string">'complete'</span>, <span class="string">'average'</span>, <span class="string">'single'</span>]
+
+<span class="keyword">for</span> method <span class="keyword">in</span> linkage_methods:
+    <span class="comment"># Clustering com K definido (baseado em análise prévia)</span>
+    hc = AgglomerativeClustering(n_clusters=<span class="number">5</span>, linkage=method)
+    labels = hc.fit_predict(X_normalized)
+    
+    <span class="comment"># Cophenetic correlation (qualidade do dendrograma)</span>
+    Z = linkage(X_normalized, method=method)
+    c, coph_dists = cophenet(Z, pdist(X_normalized))
+    
+    print(f<span class="string">"{method}: Silhouette={silhouette_score(X_normalized, labels):.4f}, Cophenetic={c:.4f}"</span>)</pre>
+                        </div>
+
+                        <h3>Dendrograma</h3>
+                        <p>
+                            O dendrograma é uma representação gráfica da hierarquia de clusters. A altura das linhas indica a distância na qual os clusters foram unidos.
+                        </p>
+
+                        <div class="code-block">
+                            <pre><span class="comment"># Plotar Dendrograma</span>
+<span class="keyword">from</span> scipy.cluster.hierarchy <span class="keyword">import</span> dendrogram, linkage
+
+Z = linkage(X_normalized, method=<span class="string">'ward'</span>)
+
+plt.figure(figsize=(<span class="number">14</span>, <span class="number">8</span>))
+dendrogram(Z, 
+           truncate_mode=<span class="string">'lastp'</span>,
+           p=<span class="number">30</span>,  <span class="comment"># Mostrar últimos 30 merges</span>
+           leaf_rotation=<span class="number">90</span>,
+           leaf_font_size=<span class="number">10</span>,
+           show_contracted=<span class="number">True</span>)
+plt.title(<span class="string">'Dendrograma - Ward Linkage'</span>)
+plt.xlabel(<span class="string">'Índice do Cluster (ou tamanho)'</span>)
+plt.ylabel(<span class="string">'Distância'</span>)
+plt.savefig(<span class="string">'dendrograma.png'</span>, dpi=<span class="number">150</span>)</pre>
+                        </div>
+
+                        <div class="info-box info-box-tip">
+                            <div class="info-box-title">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                                </svg>
+                                Saída do Clustering Hierárquico
+                            </div>
+                            <div class="info-box-content">
+                                Serão salvos: <strong>hierarchical_labels.npy</strong> (labels) e dendrogramas para cada método de ligação.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="divider"></div>
+
+            <!-- Section 09: Validation -->
+            <section id="validacao" class="section">
+                <div class="section-header">
+                    <div class="section-number">09</div>
+                    <div class="section-title-group">
+                        <h2 class="section-title">Validação e Interpretação dos Clusters</h2>
+                        <p class="section-subtitle">Métricas e análise de perfis identificados</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <h3>Como Validar Clusters</h3>
+                        <p>
+                            A validação de clustering é multifacetada. Utilizamos métricas quantitativas combinadas com análise qualitativa dos perfis.
+                        </p>
+
+                        <h3>Métricas de Validação</h3>
+                        <table class="comparison-table">
+                            <thead>
+                                <tr>
+                                    <th>Métrica</th>
+                                    <th>Range</th>
+                                    <th>Interpretação</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Silhouette Score</strong></td>
+                                    <td>[-1, 1]</td>
+                                    <td>> 0.5: bom, > 0.7: excelente</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Calinski-Harabasz</strong></td>
+                                    <td>[0, ∞)</td>
+                                    <td>Quanto maior, melhor separação</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Davies-Bouldin</strong></td>
+                                    <td>[0, ∞)</td>
+                                    <td>Quanto menor, melhor (< 1 é bom)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="code-block">
+                            <pre><span class="comment"># Validação completa</span>
+<span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> (
+    silhouette_score,
+    calinski_harabasz_score,
+    davies_bouldin_score
+)
+
+<span class="keyword">def</span> <span class="function">evaluate_clustering</span>(X, labels, method_name):
+    n_clusters = len(set(labels)) - (<span class="number">1</span> <span class="keyword">if</span> -<span class="number">1</span> <span class="keyword">in</span> labels <span class="keyword">else</span> <span class="number">0</span>)
+    
+    <span class="keyword">if</span> n_clusters < <span class="number">2</span>:
+        <span class="keyword">return</span> <span class="string">"Menos de 2 clusters"</span>
+    
+    sil = silhouette_score(X, labels)
+    ch = calinski_harabasz_score(X, labels)
+    db = davies_bouldin_score(X, labels)
+    
+    <span class="keyword">return</span> {
+        <span class="string">'method'</span>: method_name,
+        <span class="string">'n_clusters'</span>: n_clusters,
+        <span class="string">'silhouette'</span>: sil,
+        <span class="string">'calinski_harabasz'</span>: ch,
+        <span class="string">'davies_bouldin'</span>: db
+    }</pre>
+                        </div>
+
+                        <h3>Comparação de Perfis (Radar Charts)</h3>
+                        <p>
+                            Para cada cluster, calcularemos o perfil médio e compararemos visualmente usando gráficos radar:
+                        </p>
+
+                        <div class="code-block">
+                            <pre><span class="comment"># Perfil médio de cada cluster</span>
+<span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+
+df_clusters = pd.DataFrame(X_normalized, columns=[<span class="string">'AL'</span>, <span class="string">'ACD'</span>, <span class="string">'WTW'</span>, <span class="string">'K1'</span>, <span class="string">'K2'</span>])
+df_clusters[<span class="string">'cluster'</span>] = labels
+
+<span class="comment"># Média por cluster</span>
+cluster_profiles = df_clusters.groupby(<span class="string">'cluster'</span>).mean()
+print(cluster_profiles)
+
+<span class="comment"># Radar chart</span>
+<span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt
+<span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+categories = [<span class="string">'AL'</span>, <span class="string">'ACD'</span>, <span class="string">'WTW'</span>, <span class="string">'K1'</span>, <span class="string">'K2'</span>]
+N = len(categories)
+
+angles = [n / float(N) * <span class="number">2</span> * np.pi <span class="keyword">for</span> n <span class="keyword">in</span> range(N)]
+angles += angles[:<span class="number">1</span>]
+
+fig, ax = plt.subplots(figsize=(<span class="number">8</span>, <span class="number">8</span>), subplot_kw=dict(polar=<span class="number">True</span>))
+
+<span class="keyword">for</span> idx, row <span class="keyword">in</span> cluster_profiles.iterrows():
+    values = row.values.flatten().tolist()
+    values += values[:<span class="number">1</span>]
+    ax.plot(angles, values, linewidth=<span class="number">2</span>, label=f<span class="string">f'Cluster {idx}'</span>)
+    ax.fill(angles, values, alpha=<span class="number">0.1</span>)
+
+ax.set_xticks(angles[:-<span class="number">1</span>])
+ax.set_xticklabels(categories)
+plt.legend()
+plt.savefig(<span class="string">'cluster_profiles_radar.png'</span>)</pre>
+                        </div>
+
+                        <h3>Testes Estatísticos</h3>
+                        <p>
+                            Para confirmar que os clusters são estatisticamente diferentes:
+                        </p>
+                        <ul>
+                            <li><strong>ANOVA</strong>: Compara médias entre múltiplos grupos</li>
+                            <li><strong>Kruskal-Wallis</strong>: Versão não-paramétrica da ANOVA</li>
+                            <li><strong>t-test</strong>: Compara médias entre dois grupos específicos</li>
+                        </ul>
+
+                        <h3>Cruzar com "Correto" (Informativo)</h3>
+                        <p>
+                            A coluna "Correto" não será usada para clustering, mas可以用来验证我们的分组是否与临床分类一致:
+                        </p>
+
+                        <div class="code-block">
+                            <pre><span class="comment"># Análise cruzada (uso informativo, não para clustering)</span>
+<span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+
+<span class="comment"># Tabela de crosstab: clusters vs classificação original</span>
+df_analysis = pd.DataFrame({
+    <span class="string">'cluster'</span>: labels,
+    <span class="string">'correto'</span>: df[<span class="string">'Correto'</span>]
+})
+
+crosstab = pd.crosstab(df_analysis[<span class="string">'cluster'</span>], df_analysis[<span class="string">'correto'</span>])
+print(crosstab)
+
+<span class="comment"># Pureza do cluster: quanto cada cluster é "puro"</span>
+<span class="keyword">def</span> <span class="function">cluster_purity</span>(labels, true_labels):
+    contingency = pd.crosstab(labels, true_labels)
+    purity = contingency.max(axis=<span class="number">1</span>).sum() / len(labels)
+    <span class="keyword">return</span> purity
+
+print(f<span class="string">"Pureza: {cluster_purity(labels, df['Correto']):.4f}"</span>)</pre>
+                        </div>
+
+                        <div class="info-box info-box-info">
+                            <div class="info-box-title">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                                </svg>
+                                Interpretação dos Perfis
+                            </div>
+                            <div class="info-box-content">
+                                Com base nos centros dos clusters e nas variáveis biométricas, we'll gerar descrições dos perfis oculares identificados (ex: "Olhos longos com câmara anterior profunda", "Olhos curtos com córnea curva").
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="divider"></div>
+
+            <!-- Section 10: Final Comparison -->
+            <section id="conclusoes" class="section">
+                <div class="section-header">
+                    <div class="section-number">10</div>
+                    <div class="section-title-group">
+                        <h2 class="section-title">Comparação Final e Conclusões</h2>
+                        <p class="section-subtitle">Resumo da análise e recomendações</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <h3>Critérios de Comparação</h3>
+                        <p>
+                            Os algoritmos serão comparados com base nos seguintes critérios:
+                        </p>
+
+                        <table class="comparison-table">
+                            <thead>
+                                <tr>
+                                    <th>Critério</th>
+                                    <th>K-Means</th>
+                                    <th>DBSCAN</th>
+                                    <th>Hierárquico</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Silhouette Score</strong></td>
+                                    <td>✓</td>
+                                    <td>✓</td>
+                                    <td>✓</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Interpretabilidade</strong></td>
+                                    <td>Alta</td>
+                                    <td>Média</td>
+                                    <td>Alta</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Detecção de Outliers</strong></td>
+                                    <td>Não</td>
+                                    <td>Sim</td>
+                                    <td>Parcial</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Forma dos Clusters</strong></td>
+                                    <td>Esféricas</td>
+                                    <td>Arbitrária</td>
+                                    <td>Variável</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Reprodutibilidade</strong></td>
+                                    <td>Sim</td>
+                                    <td>Sim</td>
+                                    <td>Sim</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <h3>Seleção do Algoritmo</h3>
+                        <p>
+                            O algoritmo será selecionado baseado em:
+                        </p>
+                        <ol>
+                            <li><strong>Métricas de validação</strong>: Silhouette, Calinski-Harabasz, Davies-Bouldin</li>
+                            <li><strong>Interpretabilidade clínica</strong>: Perfis fazem sentido oftalmologicamente</li>
+                            <li><strong>Estabilidade</strong>: Resultados consistentes entre diferentes normalizações</li>
+                            <li><strong>Robustez</strong>: Performance com diferentes inicializações</li>
+                        </ol>
+
+                        <h3>Saídas Esperadas</h3>
+                        <div class="card-grid card-grid-3">
+                            <div class="method-card">
+                                <div class="method-title">Labels</div>
+                                <div class="method-desc">
+                                    Arquivos .npy com labels de cluster para cada algoritmo.
+                                </div>
+                            </div>
+                            <div class="method-card">
+                                <div class="method-title">Métricas</div>
+                                <div class="method-desc">
+                                    Arquivo validation_metrics.csv com todas as métricas comparativas.
+                                </div>
+                            </div>
+                            <div class="method-card">
+                                <div class="method-title">Visualizações</div>
+                                <div class="method-desc">
+                                    Gráficos PCA, t-SNE, dendrogramas, e radar charts.
+                                </div>
+                            </div>
+                            <div class="method-card">
+                                <div class="method-title">Perfis</div>
+                                <div class="method-desc">
+                                    Descrição textual dos perfis oculares identificados.
+                                </div>
+                            </div>
+                            <div class="method-card">
+                                <div class="method-title">Scalers</div>
+                                <div class="method-desc">
+                                    Arquivos .pkl com os scalers utilizados para reprodutibilidade.
+                                </div>
+                            </div>
+                            <div class="method-card">
+                                <div class="method-title">DataFrames</div>
+                                <div class="method-desc">
+                                    Arquivos .pkl com dataframes processados e labels atribuídos.
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3>Apresentação ao Cliente</h3>
+                        <p>
+                            O relatório final incluirá:
+                        </p>
+                        <ul>
+                            <li><strong>Introdução</strong>: Contextualização do problema e metodologia</li>
+                            <li><strong>Análise Exploratória</strong>: Visualizações e estatísticas descritivas</li>
+                            <li><strong>Metodologia</strong>: Descrição dos algoritmos e parâmetros</li>
+                            <li><strong>Resultados</strong>: Métricas de validação e comparações</li>
+                            <li><strong>Perfis Identificados</strong>: Descrição clínica de cada cluster</li>
+                            <li><strong>Conclusões</strong>: Recomendações e próximos passos</li>
+                        </ul>
+
+                        <div class="info-box info-box-success">
+                            <div class="info-box-title">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                Objetivo Final
+                            </div>
+                            <div class="info-box-content">
+                                Identificar e caracterizar os principais perfis biométricos oculares presentes no dataset, fornecendo ao cliente uma ferramenta de classificação que pode ser aplicada a novos pacientes.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p class="footer-text">
+            Knowledge Engineering - Eye Profile Clustering | Atividade 03_Validation<br>
+            Documentação de Planejamento | Em Planejamento
+        </p>
+    </footer>
+</body>
+</html>

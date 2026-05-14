@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>EDA - Barrett II Eyes Clustering</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; background: #f5f5f5; }
+        h1 { color: #2c3e50; }
+        h2 { color: #34495e; margin-top: 30px; }
+        .container { max-width: 1200px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px; }
+        table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: center; }
+        th { background-color: #3498db; color: white; }
+        img { max-width: 100%; margin: 20px 0; border: 1px solid #ddd; }
+        .highlight { background-color: #e8f4f8; padding: 15px; border-radius: 5px; margin: 15px 0; }
+        .metric { display: inline-block; background: #3498db; color: white; padding: 10px 20px; margin: 5px; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📊 Analise Exploratoria de Dados (EDA)</h1>
+        <p><strong>Dataset:</strong> Barrett II Eyes Clustering</p>
+        <p><strong>Registros:</strong> 1528 | <strong>Features:</strong> 5 (AL, ACD, WTW, K1, K2)</p>
+        
+        <h2>Estatisticas Descritivas</h2>
+        <div class="highlight">
+            <table>
+                <tr><th>Variavel</th><th>Media</th><th>Std</th><th>Min</th><th>Q1</th><th>Mediana</th><th>Q3</th><th>Max</th></tr>
+                <tr><td>AL</td><td>23.49</td><td>1.14</td><td>20.15</td><td>22.76</td><td>23.36</td><td>24.08</td><td>30.96</td></tr>
+                <tr><td>ACD</td><td>3.11</td><td>0.43</td><td>1.13</td><td>2.83</td><td>3.08</td><td>3.36</td><td>5.23</td></tr>
+                <tr><td>WTW</td><td>11.98</td><td>0.43</td><td>9.90</td><td>11.70</td><td>12.00</td><td>12.30</td><td>13.30</td></tr>
+                <tr><td>K1</td><td>43.47</td><td>1.75</td><td>30.93</td><td>42.45</td><td>43.49</td><td>44.53</td><td>49.41</td></tr>
+                <tr><td>K2</td><td>44.37</td><td>1.77</td><td>33.95</td><td>43.27</td><td>44.29</td><td>45.49</td><td>52.41</td></tr>
+            </table>
+        </div>
+        
+        <h2>Histogramas</h2>
+        <img src="../imgs/hist_all.png" alt="Histogramas">
+        
+        <h2>Boxplots</h2>
+        <img src="../imgs/boxplot_all.png" alt="Boxplots">
+        
+        <h2>Matriz de Correlacao</h2>
+        <img src="../imgs/correlation.png" alt="Correlacao">
+        
+        <h2>Pairplot</h2>
+        <img src="../imgs/pairplot.png" alt="Pairplot" style="max-width: 1000px;">
+        
+        <h2>Outliers Identificados</h2>
+        <div class="highlight">
+            <span class="metric">AL: 44 outliers (2.9%)</span>
+            <span class="metric">ACD: 26 outliers (1.7%)</span>
+            <span class="metric">WTW: 7 outliers (0.5%)</span>
+            <span class="metric">K1: 26 outliers (1.7%)</span>
+            <span class="metric">K2: 21 outliers (1.4%)</span>
+        </div>
+        
+        <h2>Principais Descobertas</h2>
+        <ul>
+            <li><strong>K1 e K2:</strong> Altamente correlacionados (r=0.975), como esperado para medidas de curvatura corneana</li>
+            <li><strong>AL:</strong> Maior variabilidade (range=10.81), distribuicao assimetrica positiva (skew=1.12)</li>
+            <li><strong>WTW:</strong> Menor variabilidade (std=0.43)</li>
+            <li><strong>Outliers:</strong> Presentes em todas variaveis, especialmente em AL (44) e ACD (26)</li>
+        </ul>
+    </div>
+</body>
+</html>

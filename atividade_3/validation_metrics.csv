@@ -1,0 +1,4 @@
+Method,N_clusters,Silhouette,CH,DB
+K-Means (K=2),2,0.2867,760.43,1.2582
+DBSCAN,2,0.5441,13.06,4.5533
+Hierarchical (Ward),2,0.2438,569.32,1.3868
