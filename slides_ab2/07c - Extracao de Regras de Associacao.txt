@@ -1,0 +1,504 @@
+10/08/2022
+
+Extração de Regras
+de Associação
+
+10/08/2022
+
+1
+
+1
+
+Algoritmos de Mineração de
+Regras de Associação
+• Apriori
+• Partition
+Um algoritmo é dito escalável se, dada uma quantidade fixa de
+memória principal, seu tempo de execução cresce linearmente
+com o número de registros da base de dados.
+
+10/08/2022
+
+2
+
+2
+
+1
+
+10/08/2022
+
+Mineração de Regras de Associação
+® Entrada:
+· Base de dados de transações;
+· Suporte mínimo (supmin);
+· Confiança mínima (confmin).
+
+® Saída:
+· Todas as regras de associação que possuem
+suporte e confiança maiores ou iguais ao
+suporte e à confiança mínimos.
+
+10/08/2022
+
+3
+
+3
+
+Mineração de Regras de Associação
+Identificar as regras de associação com SupMin=0.3 e ConfMin=0.8,
+considerando-se a seguinte base de dados.
+
+10/08/2022
+
+ID
+
+Itens
+
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+
+{Café, Pão, Manteiga}
+{Leite, Cerveja, Pão, Manteiga}
+{Café, Pão, Manteiga}
+{Leite, Café, Pão, Manteiga}
+{Cerveja}
+{Manteiga}
+{Pão}
+{Feijão}
+{Arroz, Feijão}
+{Arroz}
+
+4
+
+4
+
+2
+
+10/08/2022
+
+Regras obtidas:
+{Café} => {Pão}
+
+Sup=0.3 e Conf=1.0
+
+{Café} => {Manteiga}
+
+Sup=0.3 e Conf=1.0
+
+{Pão} => {Manteiga}
+{Manteiga} => {Pão}
+
+Sup=0.4 e Conf=0.8
+Sup=0.4 e Conf=0.8
+
+{Café,Pão} => {Manteiga} Sup=0.3 e Conf=1.0
+{Café,Manteiga} => {Pão} Sup=0.3 e Conf=1.0
+{Café} => {Pão,Manteiga} Sup=0.3 e Conf=1.0
+
+10/08/2022
+
+5
+
+5
+
+Mineração de Regras de Associação
+® Definição:
+Um conjunto de itens Z é dito freqüente quando o seu suporte é
+maior ou igual ao suporte mínimo.
+® Desta forma, podemos dividir o problema de minerar regras de
+associação em duas fases.
+Fase 1: Encontrar cada conjunto freqüente Z
+
+(Sup(Z) ³ SupMin);
+
+Fase 2: Para cada conjunto freqüente Z, identificar seus possíveis
+subconjuntos X e Y, de tal forma que:
+Z = XÈY e Conf(XÞY) ³ ConfMin.
+
+10/08/2022
+
+6
+
+6
+
+3
+
+10/08/2022
+
+Mineração de Regras de Associação
+Fase 1: Identificação dos conjuntos freqüentes.
+® É a fase computacionalmente cara.
+® Para um conjunto de itens de tamanho n, existem
+2n possíveis subconjuntos freqüentes.
+® Dois algoritmos básicos propostos para esta fase:
+- Apriori
+- Partition
+Fase 2: Identificação das regras a partir dos conjuntos freqüentes.
+
+10/08/2022
+
+7
+
+7
+
+Estratégia Apriori
+O algoritmo Apriori considera as seguintes propriedades com o
+objetivo de diminuir o espaço de busca, ou seja, evitar que todos os
+2n subconjuntos sejam avaliados.
+® Todo subconjunto de um conjunto freqüente é freqüente.
+(Se {A,B,C} é freqüente, então {A,B} é freqüente.)
+® Pela contra-positiva: Todo conjunto que contém um
+subconjunto não freqüente também não é freqüente.
+(Se {A,B} não é freqüente, então {A,B,C} não é freqüente.)
+
+10/08/2022
+
+8
+
+8
+
+4
+
+10/08/2022
+
+Estratégia Apriori
+• Calcular o suporte de todos os conjuntos de tamanho 1 e, em seguida,
+eliminar aqueles que não possuem o suporte mínimo.
+• Formar todos os possíveis conjuntos de tamanho 2 a partir daqueles
+de tamanho 1 resultantes do passo anterior. Em seguida, eliminar os novos
+conjuntos que não possuem o suporte mínimo.
+• Repetir o procedimento anterior até que, no k-ésimo passo, nenhum
+novo conjunto de tamanho k, obtido a partir dos conjuntos de tamanho k-1,
+tenha suporte mínimo.
+
+10/08/2022
+
+9
+
+9
+
+Estratégia Apriori
+TID
+101
+792
+1130
+1735
+
+Itens Comprados
+leite, pão, suco
+leite, suco
+leite, pão, ovos
+pão, biscoito, café
+
+Considerar SupMin = 50% (2 tuplas)
+
+Sup({leite}) = 3
+Sup({pão}) = 3
+Sup({suco}) = 2
+Sup({ovos}) = 1
+Sup({biscoito}) = 1
+Sup({café}) = 1
+
+Sup({leite, pão}) = 2
+Sup({leite, suco}) = 2
+Sup({pão, suco}) = 1
+
+Sup({leite, pão, suco}) = 1
+
+Freqüentes:
+{leite}
+{pão}
+{suco}
+
+Freqüentes:
+{leite, pão}
+{leite, suco}
+
+Freqüentes:
+-----
+
+10/08/2022
+
+10
+
+10
+
+5
+
+10/08/2022
+
+Estratégia Apriori
+1. F1 = conjuntos freqüentes de tamanho 1;
+2. k = 1;
+3. enquanto ( Fk ¹ Ø ) faça
+4.
+k = k + 1;
+5.
+Gerar Ck (todos os candidatos de tamanho k) a partir de Fk-1;
+6.
+para cada transação t pertencente a base de dados faça
+7.
+Incrementar o contador associado a todo candidato Ck
+cujos itens pertençam a t;
+8.
+Fk = todos os candidatos pertencentes a Ck com
+suporte mínimo maior ou igual a SupMin;
+9. fim-enquanto;
+10. Resposta = união de todos os conjuntos Fk;
+Observe que, em cada uma das k iterações, o algoritmo Apriori percorre toda a base de dados.
+10/08/2022
+
+11
+
+11
+
+Gerar Ck (todos os candidatos de tamanho k) a partir de Fk-1;
+A estratégia de geração de Ck a partir de Fk-1 também considera a propriedade
+de que todo subconjunto de um conjunto freqüente é freqüente. Desta forma,
+diminui a quantidade de candidatos gerados, eliminando alguns que são
+garantidamente não freqüentes.
+® Considere que, dentro de cada conjunto, os itens estejam ordenados.
+Então, o conjunto {a1, a2, ..., ak-2, ak-1, ak} só será gerado em Ck se os
+subconjuntos {a1, a2, ..., ak-2, ak-1} e {a1, a2, ..., ak-2, ak} pertencerem a Fk-1.
+(O conjunto {1,2,3,4} só poderá ser gerado se {1,2,3} e {1,2,4}
+forem freqüentes.)
+® Se {a1, a2, ..., ak-2, a k-1, ak} for gerado em Ck, será podado se possuir
+algum subconjunto que não seja freqüente.
+(O conjunto candidato {1,2,3,4} será eliminado de C4 se, por exemplo,
+{2,3,4} não for um conjunto freqüente.)
+10/08/2022
+
+12
+
+12
+
+6
+
+10/08/2022
+
+Gerar Ck (todos os candidatos de tamanho k) a partir de Fk-1;
+A estratégia de geração de Ck a partir de Fk-1 divide-se então em duas fases:
+junção e poda.
+Junção: Para cada dois conjuntos {a1, a2, ..., ak-1} e {b1, b2, ..., bk-1} de Fk-1:
+Se (a1= b1) Ù (a2= b2) Ù ... Ù (ak-2= bk-2) Ù (ak-1< bk-1) então
+gere o candidato {a1, a2, ..., ak-1, bk-1} em Ck.
+( Se {1,2,3} e {1,2,4} são conjuntos de F3, então gerar {1,2,3,4} em C4.)
+Poda: Para cada conjunto de Ck, eliminar aqueles que possuem um
+subconjunto não freqüente.
+(O conjunto candidato {1,2,3,4} será eliminado de C4 se, por exemplo,
+{2,3,4} não for um conjunto freqüente.)
+
+10/08/2022
+
+13
+
+13
+
+Gerar Ck (todos os candidatos de tamanho k) a partir de Fk-1;
+
+F3
+
+Junção
+
+C4
+
+Poda
+
+{A,B,C}
+{A,B,D}
+{A,C,D}
+{B,C,D}
+{B,C,E}
+
+Þ
+
+{A,B,C,D}
+{B,C,D,E}
+
+Þ
+
+10/08/2022
+
+C4 (podado)
+{A,B,C,D}
+
+14
+
+14
+
+7
+
+10/08/2022
+
+Estrutura de Dados: Árvore Hash
+
+Função Hash
+3, 6, 9
+
+1, 4, 7
+
+Transação
+12356
+
+1+
+
+2356
+
+2+
+
+2, 5, 8
+
+356
+
+3+
+
+56
+
+234
+567
+
+145
+
+136
+
+345
+
+356
+
+367
+
+357
+
+368
+
+689
+124
+
+125
+
+457
+
+458
+
+159
+
+10/08/2022
+
+15
+
+15
+
+Estratégia Partition
+O algoritmo Partition considera a seguinte propriedade com o objetivo
+de diminuir o número de leituras a toda a base de dados.
+® Considere a base de dados de transações dividida em n partições.
+Se um conjunto F é freqüente em relação a toda a base de dados
+(freqüência global), então F é freqüente em relação a pelo menos
+uma partição (freqüência local), ou seja, possui suporte maior
+ou igual ao mínimo dentro desta partição.
+
+50%
+
+10/08/2022
+
+16
+
+16
+
+8
+
+10/08/2022
+
+Estratégia Partition
+A estratégia Partition é dividida em duas fases: na primeira, são gerados os
+conjuntos candidatos e, na segunda, dentre estes são identificados os freqüentes.
+Em cada fase é realizada (apenas) uma leitura em toda a base de dados.
+Fase I:
+® A base de dados é dividida em partições que caibam na memória
+principal. Para cada partição, são gerados os conjuntos freqüentes locais,
+utilizando-se as idéias da estratégia Apriori.
+® Desta forma, em um único acesso a toda a base de dados, os conjuntos
+freqüentes locais de cada partição são gerados. Estes conjuntos são
+os candidatos a freqüentes globais.
+Fase II:
+® Todas as transações da base de dados são percorridas para verificar
+quais freqüentes locais (candidatos globais) são freqüentes globais.
+10/08/2022
+
+17
+
+17
+
+Estratégias Apriori e Partition
+® Na estratégia Partition, a base de dados é lida apenas duas vezes.
+Na estratégia Apriori, a base de dados é lida em cada uma das k iterações.
+® Se, por um lado, a estratégia Apriori realiza um número maior de
+leituras à base de dados, estas várias leituras permitem que, dentre os
+conjuntos candidatos, apenas os freqüentes passem à iteração seguinte.
+® Na estratégia Partition, passam para a última fase e devem ser
+processados todos os freqüentes locais (candidatos globais), identificados
+em cada partição. Este fato, dependendo do número de candidatos gerados
+que não são de fato freqüentes, pode comprometer o desempenho
+deste algoritmo.
+10/08/2022
+
+18
+
+18
+
+9
+
+10/08/2022
+
+Referências (sobre regras de associação):
+• Relatório Técnico: “Regras de Associação:
+suas Diferentes Formas e Algoritmos de Mineração”,
+I.M.B.Mendes, A.Plastino e L.S.Ochi,
+Instituto de Computação - UFF - RT-09/02, 2002.
+(disponível em http://www.dcc.ic.uff.br/~plastino/PA.HTM)
+• Capítulo 5 “Mining Association Rules in Large Databases”
+Data Mining: Concepts and Techniques
+J. Han & M. Kamber – Second Edition.
+
+Outra referência:
+• Relatório Técnico: “Improving Direct Counting for Frequent Set Mining”,
+C.Targa, A.Prado e A.Plastino,
+Instituto de Computação - UFF - RT-02/03, 2003.
+(disponível em http://www.dcc.ic.uff.br/~plastino/PA.HTM)
+• Artigo: ”Improving Direct Counting for Frequent Itemset Mining"
+A.B.Prado, C.N.Targa e A.Plastino
+6th International Conference on Data Warehousing and Knowledge Discovery (DaWaK),
+LNCS 3181, Zaragoza, 2004.
+
+10/08/2022
+
+19
+
+19
+
+Artigos com outros algoritmos/ideias:
+“A New SQL-like Operator for Mining Association Rules”
+“Mining Association Rules with Item Constraint”
+“Mining Generalized Association Rules”
+“Mining Frequent Patterns without Candidate Generation”
+“Integrating Classification and Association Rule Mining”
+“Enhancing the Apriori Algorithm for Frequent Set Counting”
+“An Effective Hash-Based Algorithm for Mining Association Rules”
+
+10/08/2022
+
+20
+
+20
+
+10
+
+

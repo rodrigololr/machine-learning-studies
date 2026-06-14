@@ -1,0 +1,381 @@
+10/08/2022
+
+Regras de
+Associação
+Prof. Dr. Aydano Machado
+
+2
+
+Regras de associação
+Padrão de relacionamento entre itens
+de dados do domínio da aplicação
+• {fralda} ⟹ {cerveja}
+• {pão, manteiga} ⟹ {leite}
+• {candidíase} ⟹ {pneumonia}
+
+3
+
+1
+
+10/08/2022
+
+Exemplo: regra de associação
+
+Id-Transação (TID)
+1
+2
+3
+4
+5
+{fralda} Þ {cerveja}
+{fralda} Þ {leite}
+{leite} Þ {fralda}
+{carne} Þ {cerveja}
+
+Itens Comprados
+leite, pão, refrigerante
+cerveja, carne
+cerveja, fralda, leite, refrigerante
+cerveja, fralda, leite, pão
+fralda, leite, refrigerante
+confiança de 66%
+confiança de 100%
+confiança de 75%
+confiança de 100%
+
+(suporte médio)
+(suporte alto)
+(suporte alto)
+(suporte baixo)
+
+4
+
+Regras de Associação:
+– Regras de Associação (Transacionais)
+– Regras de Associação Quantitativas
+(Relacionais ou Multidimensionais)
+– Meta-Regras
+
+5
+
+2
+
+10/08/2022
+
+Regras de Associação (Transacionais)
+Uma regra de associação representa um padrão de
+relacionamento entre itens de dados de um domínio de
+aplicação que ocorre com uma determinada freqüência na
+base de dados.
+{candidíase} Þ {pneumonia}
+{café, leite} Þ {pão, manteiga, queijo}
+A primeira regra indica, com um determinado grau de
+certeza, que se o paciente contraiu candidíase, então
+também teve pneumonia.
+
+6
+
+Regras de Associação (Transacionais)
+Seja I = {i1, i2, ..., in} o conjunto de itens do domínio da aplicação.
+Uma regra de associação R definida sobre I é
+uma implicação da forma
+
+XÞY
+onde X Ì I, Y Ì I, X ¹ Æ, Y ¹ Æ e X Ç Y = Æ.
+X é o antecedente da regra e Y é o conseqüente.
+
+7
+
+3
+
+10/08/2022
+
+Regras de Associação
+Regras de associação possuem índices que indicam sua
+relevância e a validade.
+O fator de suporte de uma regra X Þ Y é definido pela
+porcentagem de transações que incluem todos os
+itens do conjunto X U Y.
+® Representa a fração das transações que satisfazem
+tanto o antecedente quanto o conseqüente da regra.
+O suporte de uma regra tenta indicar sua relevância.
+
+8
+
+Regras de Associação
+Seja R a regra X Þ Y.
+Seja T o número de transações consideradas.
+Seja TXUY o número de transações que incluem
+os elementos de X U Y.
+
+Suporte(R) = TXUY / T
+TID
+
+Itens Comprados
+
+Suporte({leite} Þ {suco}) = 2 / 4 = 50%
+
+101
+
+leite, pão, suco
+
+Suporte({suco} Þ {leite}) = 50%
+
+792
+
+leite, suco
+
+Suporte({pão} Þ {suco}) = ___
+
+1130
+
+leite, ovos
+
+Suporte({pão} Þ {ovos}) = ___
+
+1735
+
+pão, biscoito, café
+
+Suporte({pão,café} Þ {biscoito}) =
+
+___
+
+9
+
+4
+
+10/08/2022
+
+Regras de Associação
+Seja X um conjunto de itens.
+Seja TX o número de transações que incluem
+os elementos de X.
+
+Suporte(X) = TX / T
+TID
+
+Itens Comprados
+
+Suporte({leite}) = 3/4 = 75%
+
+101
+
+leite, pão, suco
+
+Suporte({leite,suco}) = 2 / 4 = 50%
+
+792
+
+leite, suco
+
+Suporte({pão,suco}) = ___
+
+1130
+
+leite, ovos
+
+Suporte({pão,ovos}) = ___
+
+1735
+
+pão, biscoito, café
+
+Suporte({pão,café,biscoito}) = ___
+
+10
+
+Regras de Associação
+
+O fator de confiança de uma regra X Þ Y é definido
+pela porcentagem de transações que incluem
+os itens de Y dentre aquelas que incluem os itens de X.
+® Representa o grau de satisfatibilidade do conseqüente,
+em relação às transações que incluem o antecedente.
+A confiança tenta indicar a validade da regra.
+
+11
+
+5
+
+10/08/2022
+
+Regras de Associação
+Seja R a regra X Þ Y.
+Seja TX o número de transações que incluem
+os elementos de X.
+Seja TXUY o número de transações que incluem
+os elementos de X U Y.
+
+Confiança(R) = TXUY / TX
+Id-T.
+
+Itens Comprados
+
+Confiança({leite} Þ {suco}) = 2 / 3 = 67%
+
+101
+792
+
+leite, pão, suco
+leite, suco
+
+Confiança({suco} Þ {leite}) = 2 / 2 = 100%
+Confiança({pão} Þ {suco}) = ___
+
+1130
+1735
+
+leite, ovos
+pão, biscoito, café
+
+Confiança({pão} Þ {ovos}) = ___
+Confiança({pão,café} Þ {biscoito}) = ___
+
+12
+
+Mineração de Regras de Associação
+® Entrada:
+· Base de dados de transações;
+· Suporte mínimo;
+· Confiança mínima.
+® Saída:
+· Todas as regras de associação que possuem
+suporte e confiança maiores ou iguais ao
+suporte e à confiança mínimos.
+
+13
+
+6
+
+10/08/2022
+
+Exemplos de Regras Mineradas
+Entrada:
+Base de Dados: POF-FGV (registro das compras mensais de 422
+famílias cariocas em Junho de 1998)
+SupMin = 3%, ConfMin = 60%
+
+Resultados:
+Foram mineradas 8.469 regras de associação envolvendo 2 itens!
+Exemplos:
+{Strogonoff de Frango (caixa)} Þ {Lasanha (caixa)}
+{Milho Verde em Conserva} Þ {Ervilhas em Conserva}
+{Kiwi} Þ {Feijão Preto}
+{Cenoura} Þ {Batata Inglesa}
+
+14
+
+Regras de Associação Quantitativas
+(Relacionais ou Multidimensionais)
+Regras de associação quantitativas são utilizadas quando
+se deseja minerar padrões em bases de dados relacionais
+(formadas por atributos quantitativos e atributos categóricos).
+Tabelas = Relações
+Atributos = Dimensões
+Atributos Categóricos
+
+Id
+
+Sexo
+
+Profissão
+
+Atributos Quantitativos
+
+Salário
+
+Idade
+
+...
+
+15
+
+7
+
+10/08/2022
+
+Regras de Associação Quantitativas
+Exemplo (base de dados sobre a AIDS):
+(Transmissão-Sexual = “Não”) Þ (Drogas = “Sim”)
+® Esta regra indica, com certo grau de certeza, que se o contágio
+não foi de natureza sexual, o paciente utiliza drogas.
+Outra Notação (com Predicados):
+Transmissão-Sexual(X,“Não”) Þ Drogas(X,“Sim”)
+
+16
+
+Regras de Associação Quantitativas
+Seja D uma base de dados relacional.
+Uma regra de associação quantitativa R definida sobre D é uma
+implicação da forma
+
+X1 Ù X2 Ù ... Ù Xn Þ Y1 Ù Y2 Ù ... Ù Ym
+onde n³1, m³1, Xi (1£ i £ n) e Yj (1£ j £ m) são condições
+definidas sobre atributos distintos de D.
+(Transmissão-Sexual = “Não”) Þ (Drogas = “Sim”)
+
+Regras Híbridas:
+(sexo=“M”) Ù (20£idade£30) Ù (compra inclui “fralda”) Þ (compra inclui “cerveja”)
+
+17
+
+8
+
+10/08/2022
+
+Regras de Associação Quantitativas
+Regras Multidimensionais
+Base do IBGE
+(Escolaridade = “Analfabeto”) Ù (Sexo = “F”) Ù (Idade > 50) Þ
+(Ocupação = “Doméstica”)
+
+Regras Híbridas
+Base da FGV
+(Cidade = “POA”) Ù (Membros = 1) Ù (Produto = “cerveja) Þ
+(Produto = “salaminho”)
+
+18
+
+Regras de Associação Quantitativas
+® Os conceitos de suporte e confiança se aplicam como nas
+regras convencionais.
+• O fator de suporte representa a porcentagem de registros de D
+que satisfazem todas as condições Xi (1£i£n) e Yj (1£j£m).
+• O fator de confiança representa, dentre os registros de D que
+satisfazem as condições Xi (1£i£n) (antecedente), a
+porcentagem dos registros que satisfazem Yj (1£j£m)
+(conseqüente).
+
+19
+
+9
+
+10/08/2022
+
+Meta-Regras
+(Mineração Baseada em Restrições)
+• Permitem a especificação do tipo de regras que se deseja minerar.
+• Podem funcionar como restrições definidas pelo usuário.
+• Podem representar hipóteses a serem confirmadas
+Meta-Regra:
+P1(X,Y) Ù P2(X,Z) Þ buys(X,“educational software”)
+Uma possível regra minerada:
+age(X,[30,39]) Ù income(X,[41K,60K]) Þ buys(X,“educational software”)
+
+20
+
+Referências:
+1. Data Mining: Concepts and
+Techniques. J.Han e M.Kamber,
+Morgan Kaufmann, segunda
+edição, 2006
+2. Mineração de Dados: Algoritmos e
+Aplicações. Alexandre Plastino,
+Minicurso curso do ERBASE, 2010.
+
+21
+
+10
+
+

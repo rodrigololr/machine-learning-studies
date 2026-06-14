@@ -1,0 +1,372 @@
+10/08/2022
+
+Agrupamento
+(Clustering)
+Prof. Dr. Aydano Machado
+2
+
+Clusterização (Agrupamento)
+Agrupamento é o resultado da identificação de um conjunto
+finito de categorias (ou grupos - clusters) que contêm objetos
+similares.
+• Grupos não são previamente definidos.
+
+3
+
+1
+
+10/08/2022
+
+Exemplo: Clusterização (Agrupamento)
+
+4
+
+Exemplo: Clusterização (Agrupamento)
+
+5
+
+2
+
+10/08/2022
+
+Algoritmos de agrupamento
+• Organizam um conjunto de n
+objetos em (k) clusters (grupos)
+de objetos semelhantes.
+• Características de um cluster?
+• O número k de clusters?
+• Ex.: k-means, k-medoids, dbscan.
+
+6
+
+Entrada de dados
+Matriz de Dados: contém os valores dos p atributos que
+caracterizam cada um dos n objetos.
+é x11
+ê
+ê ...
+êx
+ê i1
+ê ...
+êx
+ëê n1
+
+...
+
+x1f
+
+...
+
+...
+
+...
+
+...
+
+...
+
+xif
+
+...
+
+...
+
+...
+
+...
+
+... xnf
+
+...
+
+x1p ù
+ú
+... ú
+xip ú
+ú
+... ú
+xnp úú
+û
+
+7
+
+3
+
+10/08/2022
+
+Entrada de dados
+Matriz de Dissimilaridade (distâncias): contém as distâncias entre cada
+par de objetos.
+- d(i,j) representa a dissimilaridade (diferença) entre os objetos i e j.
+- d(i,j) ≥ 0
+
+- d(i,j) = d(j,i)
+
+é 0
+ê d(2,1)
+0
+ê
+ê d(3,1) d ( 3,2) 0
+ê
+:
+:
+ê :
+êëd ( n,1) d ( n,2) ...
+
+- d(i,i) = 0
+
+ù
+ú
+ú
+ú
+ú
+ú
+... 0úû
+
+8
+
+K-Means (MacQueen’67)
+Entrada: base com n objetos e o número k de clusters.
+Saída: n objetos organizados em k clusters.
+® escolher aleatoriamente k objetos como os centros
+(centróides) iniciais dos k clusters;
+® repetir
+- (re)associar cada objeto ao cluster cujo centróide
+esteja mais perto;
+- (re)calcular o centróide de cada cluster como sendo
+o valor médio dos objetos de cada cluster;
+até que nenhuma alteração seja realizada.
+
+9
+
+4
+
+10/08/2022
+
+Exemplo: Conjunto de 8.000 objetos em 2 dimensões.
+-k=5
+
+10
+
+Exemplo: 1ª iteração
+
+11
+
+5
+
+10/08/2022
+
+Exemplo: 2ª iteração
+
+12
+
+Exemplo: 3ª iteração
+
+13
+
+6
+
+10/08/2022
+
+Exemplo: 4ª iteração
+
+14
+
+Exemplo: 5ª iteração
+
+15
+
+7
+
+10/08/2022
+
+Exemplo: 6ª iteração
+
+16
+
+Exemplo: 7ª iteração
+
+17
+
+8
+
+10/08/2022
+
+Exemplo: 8ª iteração
+
+18
+
+Exemplo: 9ª iteração
+
+19
+
+9
+
+10/08/2022
+
+Exemplo: 10ª iteração
+
+20
+
+K-Means
+- Classificado como um método de particionamento.
+- Tenta encontrar k clusters não vazios tal que a soma das
+distâncias quadráticas entre os objetos e os centróides
+de seus respectivos clusters seja minimizada.
+- Em geral, encontra um mínimo local.
+- Em média, possui bom desempenho.
+
+k
+
+i=1
+
+xÎCi
+
+- Não adequado para identificar clusters de forma não
+convexa.
+- Não trabalha bem com ruídos.
+
+21
+
+10
+
+10/08/2022
+
+22
+
+K-Medoids
+(PAM - Partitioning Around Medoids, 1987)
+- semelhante ao K-means, porém o representante de
+cada cluster não será a “média” dos pontos do cluster,
+mas sim um dos pontos pertencente ao cluster.
+- a escolha dos medóides deve minimizar as distâncias
+entre os objetos e os medóides de seus respectivos
+clusters.
+- o número de clusters (k) é um parâmetro de entrada,
+- mais adequado para bases com ruídos.
+
+23
+
+11
+
+10/08/2022
+
+DBSCAN
+(Density-Based Spatial Clustering of Applications with Noise)
+- método baseado em densidade,
+- o número de clusters não é um parâmetro de entrada,
+- bom para bases com ruídos,
+- adequado para identificar clusters de formato arbitrário,
+- trabalha com dois parâmetros: raio, densidade.
+
+24
+
+Exemplo: Conjunto de 44 objetos em 2 dimensões.
+- densidade = 4 e um raio = R
+
+25
+
+12
+
+10/08/2022
+
+Exemplo: Conjunto de 44 objetos em 2 dimensões.
+- densidade = 4 e um raio = R
+
+R
+
+26
+
+Exemplo: Conjunto de 44 objetos em 2 dimensões.
+- densidade = 4 e um raio = R
+
+27
+
+13
+
+10/08/2022
+
+Exemplo: Conjunto de 44 objetos em 2 dimensões.
+- densidade = 4 e um raio = R
+
+28
+
+Exemplo: Conjunto de 44 objetos em 2 dimensões.
+- densidade = 4 e um raio = R
+
+29
+
+14
+
+10/08/2022
+
+Exemplo: Conjunto de 44 objetos em 2 dimensões.
+- densidade = 4 e um raio = R
+
+30
+
+Exemplo: Conjunto de 44 objetos em 2 dimensões.
+- densidade = 4 e um raio = R
+
+31
+
+15
+
+10/08/2022
+
+Exemplo: Conjunto de 44 objetos em 2 dimensões.
+- densidade = 4 e um raio = R
+
+32
+
+Exemplo: Conjunto de 44 objetos em 2 dimensões.
+- densidade = 4 e um raio = R
+
+33
+
+16
+
+10/08/2022
+
+Exemplo: Conjunto de 44 objetos em 2 dimensões.
+- densidade = 4 e um raio = R
+
+34
+
+Exemplo: Conjunto de 44 objetos em 2 dimensões.
+- densidade = 4 e um raio = R
+
+35
+
+17
+
+10/08/2022
+
+Características Importantes
+(de um algoritmo de clusterização)
+
+- Escalabilidade,
+- Aceitar diferentes tipos de dados,
+- Identificar cluster de diferentes formatos,
+- Poucos parâmetros de entrada,
+- Tratamento de ruídos.
+
+36
+
+Referências:
+1. Data Mining: Concepts and Techniques. J.Han e
+M.Kamber, Morgan Kaufmann, segunda edição, 2006
+2. Mineração de Dados: Algoritmos e Aplicações. Alexandre
+Plastino, Minicurso curso do ERBASE, 2010.
+
+37
+
+18
+
+10/08/2022
+
+38
+
+19
+
+

@@ -1,0 +1,315 @@
+Medidas de Interesse
+Exceções
+
+1
+
+§1
+
+Modelo Suporte/Confiança
+Modelo Suporte/Confiança (Agrawal et al, 1993):
+Determinar todas as regras que tenham suporte e
+confiança maiores ou iguais aos valores mínimos
+especificados.
+Problemas:
+O número de regras gerado costuma ser extremamente
+volumoso. Identificar as regras realmente úteis e
+interessantes torna-se uma tarefa difícil.
+O modelo gera regras redundantes, ilusórias ou até mesmo
+contraditórias.
+
+2
+
+§2
+
+1
+
+Modelo Suporte/Confiança
+
+Entrada:
+Base de Dados: POF-FGV (registro das compras mensais de
+422 famílias cariocas em Junho de 1998)
+SupMin = 3%
+ConfMin = 60%
+Resultados:
+Foram mineradas 8.469 regras de associação envolvendo 2
+itens!
+
+3
+
+§3
+
+Modelo Suporte/Confiança
+Grupo I: antecedente e conseqüente muito populares.
+R: Cenoura Þ Batata Inglesa
+Sup(Cenoura) = 77,01%
+Sup(Batata Inglesa) = 81,75%
+
+s: 70,38%
+
+c: 91,38%
+
+Grupo II: antecedente pouco freqüente e conseqüente muito
+freqüente (obs: 80% das regras mineradas).
+R: Filé de Viola Þ Açúcar Refinado
+
+s: 7,58%
+
+c: 86,49%
+
+Sup(Filé de Viola) = 8,77%
+Sup(Açúcar Refinado) = 86,49%
+
+Grupo III: antecedente e conseqüente pouco freqüentes.
+R: Strogonoff de Frango (caixa) Þ Lasanha (caixa)
+
+s: 3,32%
+
+c: 77,78%
+
+Sup(Strogonoff) = 4,27%
+Sup(Lasanha) = 14,45 %
+
+4
+
+§4
+
+2
+
+Dependência entre Itens
+Id
+
+Regra de Associação
+
+R1 Filé de Viola Þ Açúcar
+Refinado
+
+SupA
+
+SupB
+
+8,77% 86,49%
+
+Sup
+
+Conf
+
+7,58% 86,49%
+
+A confiança da regra indica que 86,49% dos clientes que
+compram filé de viola, também compram açúcar refinado.
+A probabilidade de qualquer cliente comprar açúcar
+refinado é de 86.49%.
+Os dois produtos são independentes.
+Sup(B) = Conf(A Þ B)
+
+5
+
+§5
+
+Dependência entre Itens
+Id
+
+Regra de Associação
+
+R2 Banana Nanica Þ Banana
+Prata
+
+SupA
+
+SupB
+
+12,09% 76,07%
+
+Sup
+
+Conf
+
+7,35% 60,78%
+
+A confiança da regra indica que 60,78% dos clientes que
+compram banana nanica, também compram banana prata.
+A probabilidade de qualquer cliente comprar banana prata
+é de 76.07%. Portanto clientes que compram banana
+nanica têm menor chance de comprar banana prata.
+Os dois produtos possuem dependência negativa
+Sup(B) > Conf(A Þ B)
+
+6
+
+§6
+
+3
+
+Dependência entre Itens
+Id
+
+Regra de Associação
+
+R3 Milho Verde em Conserva Þ
+Ervilhas em Conserva
+
+SupA
+
+SupB
+
+Sup
+
+Conf
+
+32,94% 37,91% 27,01% 82,01%
+
+A confiança da regra indica que 82,01% dos clientes que
+compram milho verde, também compram ervilhas.
+A probabilidade de qualquer cliente comprar ervilhas é
+de 37.91%. Portanto clientes que compram milho verde
+têm uma chance muito maior de comprar ervilhas.
+Os dois produtos possuem dependência positiva.
+Sup(B) < Conf(A Þ B)
+
+7
+
+§7
+
+Medidas Objetivas
+Lift(A Þ B) : indica o quanto mais freqüente torna-se B
+quando A ocorre.
+Lift(A Þ B) = Conf (A Þ B) ÷ Sup(B)
+Ex 1: R: Filé de Viola Þ Açúcar Refinado
+Lift(R) = 0,8649 ÷ 0,8649 = 1
+Ex 2: R: Banana Nanica Þ Banana Prata
+Lift(R) = 0,6078 ÷ 0,7607 = 0,80
+Ex 3: R: Milho Verde em Conserva Þ Ervilhas em Conserva
+Lift(R) = 0,8201 ÷ 0,3791 = 2,21
+
+8
+
+§8
+
+4
+
+Exceções
+Proposta:
+Mineração de exceções negativas e positivas.
+Usuários podem explorar um conjunto de regras de
+associação, descobrindo se elas tornam-se
+significativamente mais fortes ou mais fracas em algum
+subconjunto da base de dados.
+
+9
+
+§9
+
+Exceções – Base da AIDS
+Fonte: Ministério da Saúde
+Casos de AIDS diagnosticados no Brasil entre 1980 e 2001.
+172.563 tuplas e 10 atributos. (pacientes com idade superior
+a 13 anos).
+Entrada:
+R: (Transmissão Sexual = “Não”) Þ (Drogas = “Sim”)
+Sup = 13,05%, Conf = 88,09%
+A = {Sexo, Idade, Região}
+Saída:
+41 exceções negativas e 5 exceções positivas.
+
+10
+
+§10
+
+5
+
+Exceções – Base da AIDS
+
+Exceção Negativa:
+-s
+
+(Transmissão Sexual = “Não”) Þ (Drogas = “Sim”) [ (Sexo = “F”),
+(Região = “Norte) ]
+
+11
+
+§11
+
+Exceções – Base da AIDS
+
+12
+
+§12
+
+6
+
+Exceções – Base do Censo
+Fonte: UCI Repository of Machine Learning Databases
+Censo da cidade de Washington, ano de 1990
+48.842 tuplas e 14 atributos.
+Entrada:
+R: (IncomeClass = “>50K”)
+Sup = 24,08%
+A = {Education, Gender, HoursPerWeek, Age}.
+Saída:
+20 exceções positivas.
+
+13
+
+§13
+
+Exceções – Base do Censo
+Exceções Positivas:
++s
+
+Þ (IncomeClass = “>50K”) [(Education = “Doctorate”)]
+MF+ = 0,6702
++s
+
+Þ (IncomeClass = “>50K”) [(Education = “Masters”)]
+MF+ = 0,5682
++s
+
+Þ (IncomeClass = “>50K”) [(HoursPerWeek = “56-60”)]
+MF+ = 0,4474
++s
+
+Þ (IncomeClass = “>50K”) [(HoursPerWeek = “51-55”)]
+MF+ = 0,4428
++s
+
+Þ (IncomeClass = “>50K”) [(Age = “46-50”)]
+MF+ = 0,3961
++s
+
+Þ (IncomeClass = “>50K”) [(Age = “51-55”)]
+MF+ = 0,3934
+14
+
+§14
+
+7
+
+Exceções – Regras Híbridas
+Base de Dados da POF (1999)
+Regras Híbridas Positivas:
++s+c
+
+{cerveja em lata} Þ {salame e salaminho} [(Membros=1)]
++s+c
+
+{neston} Þ {farinha láctea} [(Membros=5)]
++s+c
+
+{leite longa vida} Þ {pão francês} [(Cidade=“Porto Alegre”)]
+Regras Híbridas Negativas:
+-s-c
+
+{neston} Þ {farinha láctea} [(Membros=2)]
+-s-c
+
+{leite longa vida} Þ {pão francês} [(Renda=“2,5 a 4,99 Sal. Min.”)]
+-s-c
+
+{leite longa vida} Þ {pão francês} [(Cidade=“Recife”)]
+15
+
+§15
+
+8
+
+
