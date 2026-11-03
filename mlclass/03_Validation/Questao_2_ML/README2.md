@@ -3,7 +3,7 @@
 **Atividade:** 03 — Avaliação de Classificadores  
 **Dataset:** Abalone (classes 1, 2 e 3)  
 **Modelo final:** Regressão Logística (C=3.0, solver=lbfgs)  
-**Acurácia no servidor:** 64.31% ✅
+**Acurácia no servidor:** 64.31% 
 
 ---
 
@@ -84,8 +84,8 @@ Apenas as numéricas são escalonadas; o One-Hot não.
 ### 3.3 Verificação de Vazamento
 
 Confirmamos que o Scaler viu **somente o treino** (80%):
-- Treino: média ≈ 0, desvio ≈ 1 ✅
-- Validação: distribuição própria (não vazou) ✅
+- Treino: média ≈ 0, desvio ≈ 1 
+- Validação: distribuição própria (não vazou) 
 
 ---
 
@@ -134,13 +134,13 @@ A decisão foi por **interpretabilidade**, não por máxima performance pura.
 
 ### SVM (RBF) vs Logistic Regression — Comparação
 
-| Critério | Logistic Regression ✅ | SVM (RBF) |
+| Critério | Logistic Regression  | SVM (RBF) |
 |---|---|---|
 | Accuracy CV | 64.99% | 65.27% (+0.28%) |
 | Accuracy holdout | 66.67% | 67.62% (+0.95%) |
-| **Interpretabilidade** | **✅ Coeficientes explicáveis** | ❌ "caixa preta" |
-| Simplicidade | ✅ linear, 1 step | ⚠️ não-linear, 2 hiperparams |
-| Explicar ao professor | ✅ fácil | ❌ difícil |
+| **Interpretabilidade** | ** Coeficientes explicáveis** |  "caixa preta" |
+| Simplicidade |  linear, 1 step |  não-linear, 2 hiperparams |
+| Explicar ao professor |  fácil |  difícil |
 
 Com Logistic Regression, conseguimos mostrar ao professor **como cada feature influencia cada classe** — impossível com SVM RBF.
 
@@ -198,7 +198,7 @@ Pipeline([
 | Métrica | Valor |
 |---|---|
 | **Acurácia no servidor** | **64.31%** |
-| Status | ✅ Sucesso |
+| Status |  Sucesso |
 | Data | 28/04/2026 |
 | Predições | 1.045 |
 

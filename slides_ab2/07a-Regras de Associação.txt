@@ -96,7 +96,7 @@ relevância e a validade.
 O fator de suporte de uma regra X Þ Y é definido pela
 porcentagem de transações que incluem todos os
 itens do conjunto X U Y.
-® Representa a fração das transações que satisfazem
+ Representa a fração das transações que satisfazem
 tanto o antecedente quanto o conseqüente da regra.
 O suporte de uma regra tenta indicar sua relevância.
 
@@ -190,7 +190,7 @@ Regras de Associação
 O fator de confiança de uma regra X Þ Y é definido
 pela porcentagem de transações que incluem
 os itens de Y dentre aquelas que incluem os itens de X.
-® Representa o grau de satisfatibilidade do conseqüente,
+ Representa o grau de satisfatibilidade do conseqüente,
 em relação às transações que incluem o antecedente.
 A confiança tenta indicar a validade da regra.
 
@@ -235,11 +235,11 @@ Confiança({pão,café} Þ {biscoito}) = ___
 12
 
 Mineração de Regras de Associação
-® Entrada:
+ Entrada:
 · Base de dados de transações;
 · Suporte mínimo;
 · Confiança mínima.
-® Saída:
+ Saída:
 · Todas as regras de associação que possuem
 suporte e confiança maiores ou iguais ao
 suporte e à confiança mínimos.
@@ -298,7 +298,7 @@ Idade
 Regras de Associação Quantitativas
 Exemplo (base de dados sobre a AIDS):
 (Transmissão-Sexual = “Não”) Þ (Drogas = “Sim”)
-® Esta regra indica, com certo grau de certeza, que se o contágio
+ Esta regra indica, com certo grau de certeza, que se o contágio
 não foi de natureza sexual, o paciente utiliza drogas.
 Outra Notação (com Predicados):
 Transmissão-Sexual(X,“Não”) Þ Drogas(X,“Sim”)
@@ -338,7 +338,7 @@ Base da FGV
 18
 
 Regras de Associação Quantitativas
-® Os conceitos de suporte e confiança se aplicam como nas
+ Os conceitos de suporte e confiança se aplicam como nas
 regras convencionais.
 • O fator de suporte representa a porcentagem de registros de D
 que satisfazem todas as condições Xi (1£i£n) e Yj (1£j£m).

@@ -4,7 +4,7 @@ Este guia resume os conceitos mais importantes dos slides do professor, destacan
 
 ---
 
-## 📑 Índice dos Módulos
+##  Índice dos Módulos
 1. [Agrupamento (Clustering)](#1-agrupamento-clustering)
 2. [Introdução às Regras de Associação](#2-introdução-às-regras-de-associação)
 3. [Medidas de Interesse (Lift, Dependência e Exceções)](#3-medidas-de-interesse-lift-dependência-e-exceções)

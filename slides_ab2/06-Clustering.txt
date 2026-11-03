@@ -128,9 +128,9 @@ par de objetos.
 K-Means (MacQueen’67)
 Entrada: base com n objetos e o número k de clusters.
 Saída: n objetos organizados em k clusters.
-® escolher aleatoriamente k objetos como os centros
+ escolher aleatoriamente k objetos como os centros
 (centróides) iniciais dos k clusters;
-® repetir
+ repetir
 - (re)associar cada objeto ao cluster cujo centróide
 esteja mais perto;
 - (re)calcular o centróide de cada cluster como sendo

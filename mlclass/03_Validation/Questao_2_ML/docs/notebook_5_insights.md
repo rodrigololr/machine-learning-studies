@@ -10,7 +10,7 @@ Treinar o modelo final com toda a base rotulada, validar de forma pipeline-based
 - **Accuracy CV:** 0.6499 ± 0.0198
 - **Macro F1 CV:** 0.6455 ± 0.0194
 - **Accuracy holdout:** 0.6667
-- **Accuracy no servidor:** 0.6431 ✅ (primeiro envio realizado em 28/04/2026)
+- **Accuracy no servidor:** 0.6431  (primeiro envio realizado em 28/04/2026)
 - **Predições geradas:** 1045 linhas
 - **Arquivo de submissão:** `abalone_logreg_submission.csv` (enviado ao servidor)
 - **Script usado:** `abalone_logreg_submission.py` (em `mlclass/03_Validation/`)
@@ -56,4 +56,4 @@ A diferença de acurácia entre SVM (RBF) e Logistic Regression no servidor é e
 - **Ensemble:** não foi testado Voting ou Stacking com os melhores modelos.
 
 ## Conclusão
-✅ **Enviado com sucesso em 28/04/2026.** O modelo Logistic Regression (C=3.0) foi treinado com toda a base, enviou 1045 predições ao servidor, e obteve **64.31% de acurácia** no servidor do professor. O fluxo completo — da EDA à submissão — está documentado nos notebooks 01 a 05, 04_1, e nos arquivos de insights em `/docs/`.
+ **Enviado com sucesso em 28/04/2026.** O modelo Logistic Regression (C=3.0) foi treinado com toda a base, enviou 1045 predições ao servidor, e obteve **64.31% de acurácia** no servidor do professor. O fluxo completo — da EDA à submissão — está documentado nos notebooks 01 a 05, 04_1, e nos arquivos de insights em `/docs/`.

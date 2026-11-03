@@ -117,7 +117,7 @@ Construir e validar um modelo preditivo (classificador) para identificar o tipo 
 | Campo | Valor |
 |---|---|
 | **Acurácia oficial** | **64.31%** |
-| Status | ✅ Sucesso |
+| Status |  Sucesso |
 | Servidor | `https://aydanomachado.com/mlclass/03_Validation.php` |
 | DEV_KEY | `2 computeiros e um matemagico` |
 | Predições enviadas | 1045 |

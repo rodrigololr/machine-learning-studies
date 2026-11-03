@@ -28,12 +28,12 @@ com o número de registros da base de dados.
 10/08/2022
 
 Mineração de Regras de Associação
-® Entrada:
+ Entrada:
 · Base de dados de transações;
 · Suporte mínimo (supmin);
 · Confiança mínima (confmin).
 
-® Saída:
+ Saída:
 · Todas as regras de associação que possuem
 suporte e confiança maiores ou iguais ao
 suporte e à confiança mínimos.
@@ -110,10 +110,10 @@ Sup=0.4 e Conf=0.8
 5
 
 Mineração de Regras de Associação
-® Definição:
+ Definição:
 Um conjunto de itens Z é dito freqüente quando o seu suporte é
 maior ou igual ao suporte mínimo.
-® Desta forma, podemos dividir o problema de minerar regras de
+ Desta forma, podemos dividir o problema de minerar regras de
 associação em duas fases.
 Fase 1: Encontrar cada conjunto freqüente Z
 
@@ -135,10 +135,10 @@ Z = XÈY e Conf(XÞY) ³ ConfMin.
 
 Mineração de Regras de Associação
 Fase 1: Identificação dos conjuntos freqüentes.
-® É a fase computacionalmente cara.
-® Para um conjunto de itens de tamanho n, existem
+ É a fase computacionalmente cara.
+ Para um conjunto de itens de tamanho n, existem
 2n possíveis subconjuntos freqüentes.
-® Dois algoritmos básicos propostos para esta fase:
+ Dois algoritmos básicos propostos para esta fase:
 - Apriori
 - Partition
 Fase 2: Identificação das regras a partir dos conjuntos freqüentes.
@@ -153,9 +153,9 @@ Estratégia Apriori
 O algoritmo Apriori considera as seguintes propriedades com o
 objetivo de diminuir o espaço de busca, ou seja, evitar que todos os
 2n subconjuntos sejam avaliados.
-® Todo subconjunto de um conjunto freqüente é freqüente.
+ Todo subconjunto de um conjunto freqüente é freqüente.
 (Se {A,B,C} é freqüente, então {A,B} é freqüente.)
-® Pela contra-positiva: Todo conjunto que contém um
+ Pela contra-positiva: Todo conjunto que contém um
 subconjunto não freqüente também não é freqüente.
 (Se {A,B} não é freqüente, então {A,B,C} não é freqüente.)
 
@@ -265,12 +265,12 @@ A estratégia de geração de Ck a partir de Fk-1 também considera a propriedad
 de que todo subconjunto de um conjunto freqüente é freqüente. Desta forma,
 diminui a quantidade de candidatos gerados, eliminando alguns que são
 garantidamente não freqüentes.
-® Considere que, dentro de cada conjunto, os itens estejam ordenados.
+ Considere que, dentro de cada conjunto, os itens estejam ordenados.
 Então, o conjunto {a1, a2, ..., ak-2, ak-1, ak} só será gerado em Ck se os
 subconjuntos {a1, a2, ..., ak-2, ak-1} e {a1, a2, ..., ak-2, ak} pertencerem a Fk-1.
 (O conjunto {1,2,3,4} só poderá ser gerado se {1,2,3} e {1,2,4}
 forem freqüentes.)
-® Se {a1, a2, ..., ak-2, a k-1, ak} for gerado em Ck, será podado se possuir
+ Se {a1, a2, ..., ak-2, a k-1, ak} for gerado em Ck, será podado se possuir
 algum subconjunto que não seja freqüente.
 (O conjunto candidato {1,2,3,4} será eliminado de C4 se, por exemplo,
 {2,3,4} não for um conjunto freqüente.)
@@ -399,7 +399,7 @@ Transação
 Estratégia Partition
 O algoritmo Partition considera a seguinte propriedade com o objetivo
 de diminuir o número de leituras a toda a base de dados.
-® Considere a base de dados de transações dividida em n partições.
+ Considere a base de dados de transações dividida em n partições.
 Se um conjunto F é freqüente em relação a toda a base de dados
 (freqüência global), então F é freqüente em relação a pelo menos
 uma partição (freqüência local), ou seja, possui suporte maior
@@ -422,14 +422,14 @@ A estratégia Partition é dividida em duas fases: na primeira, são gerados os
 conjuntos candidatos e, na segunda, dentre estes são identificados os freqüentes.
 Em cada fase é realizada (apenas) uma leitura em toda a base de dados.
 Fase I:
-® A base de dados é dividida em partições que caibam na memória
+ A base de dados é dividida em partições que caibam na memória
 principal. Para cada partição, são gerados os conjuntos freqüentes locais,
 utilizando-se as idéias da estratégia Apriori.
-® Desta forma, em um único acesso a toda a base de dados, os conjuntos
+ Desta forma, em um único acesso a toda a base de dados, os conjuntos
 freqüentes locais de cada partição são gerados. Estes conjuntos são
 os candidatos a freqüentes globais.
 Fase II:
-® Todas as transações da base de dados são percorridas para verificar
+ Todas as transações da base de dados são percorridas para verificar
 quais freqüentes locais (candidatos globais) são freqüentes globais.
 10/08/2022
 
@@ -438,12 +438,12 @@ quais freqüentes locais (candidatos globais) são freqüentes globais.
 17
 
 Estratégias Apriori e Partition
-® Na estratégia Partition, a base de dados é lida apenas duas vezes.
+ Na estratégia Partition, a base de dados é lida apenas duas vezes.
 Na estratégia Apriori, a base de dados é lida em cada uma das k iterações.
-® Se, por um lado, a estratégia Apriori realiza um número maior de
+ Se, por um lado, a estratégia Apriori realiza um número maior de
 leituras à base de dados, estas várias leituras permitem que, dentre os
 conjuntos candidatos, apenas os freqüentes passem à iteração seguinte.
-® Na estratégia Partition, passam para a última fase e devem ser
+ Na estratégia Partition, passam para a última fase e devem ser
 processados todos os freqüentes locais (candidatos globais), identificados
 em cada partição. Este fato, dependendo do número de candidatos gerados
 que não são de fato freqüentes, pode comprometer o desempenho

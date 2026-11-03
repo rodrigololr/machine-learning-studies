@@ -14,7 +14,7 @@
 | **Modelo usado** | Logistic Regression |
 | **Hiperparâmetros** | `C=3.0`, `solver='lbfgs'`, `max_iter=4000`, `random_state=42` |
 | **Acurácia no servidor** | **64.31%** |
-| **Status** | ✅ Sucesso |
+| **Status** |  Sucesso |
 | **URL do servidor** | `https://aydanomachado.com/mlclass/03_Validation.php` |
 | **DEV_KEY** | `2 computeiros e um matemagico` |
 | **Predições enviadas** | 1045 |
@@ -60,10 +60,10 @@ O SVM (RBF) teve melhor acurácia local (65.27% vs 64.99% em CV), mas a diferen�
 
 | Critério | Logistic Regression | SVM (RBF) |
 |---|---|---|
-| Performance | ✅ 64.99% CV | ✅ 65.27% CV (+0.28%) |
-| Interpretabilidade | ✅ Coeficientes explicáveis | ❌ “caixa preta” |
-| Complexidade | ✅ Simples, rápido | ⚠️ Mais complexo |
-| Justificativa para professor | ✅ Fácil de explicar | ⚠️ Difícil de explicar |
+| Performance |  64.99% CV |  65.27% CV (+0.28%) |
+| Interpretabilidade |  Coeficientes explicáveis |  “caixa preta” |
+| Complexidade |  Simples, rápido |  Mais complexo |
+| Justificativa para professor |  Fácil de explicar |  Difícil de explicar |
 
 **Decisão:** Logistic Regression. A margem de ~0.3% não justifica perder a capacidade de explicar os coeficientes ao professor durante a apresentação/defesa.
 
@@ -117,7 +117,7 @@ A distribuição das predições é coerente com a do treino — não houve cola
 
 ## Próximo Envio Possível
 
-⚠️ A atividade permite **1 envio a cada 12h**. Se quiser tentar melhorar a acurácia (por exemplo, enviando com SVM RBF ou ajustando hiperparâmetros), aguarde pelo menos 12h após este envio.
+ A atividade permite **1 envio a cada 12h**. Se quiser tentar melhorar a acurácia (por exemplo, enviando com SVM RBF ou ajustando hiperparâmetros), aguarde pelo menos 12h após este envio.
 
 ### Ideias para próxima tentativa (se decidir enviar novamente):
 1. **SVM (RBF)** com grid search em `C` e `gamma` — pode ganhar ~0.5-1%

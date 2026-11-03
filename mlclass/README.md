@@ -4,7 +4,7 @@ Repositório estruturado contendo projetos práticos, benchmarks e implementaç�
 
 ---
 
-## 🧭 Visão Geral dos Módulos
+## Visão Geral dos Módulos
 
 | Módulo | Paradigma / Área | Dataset / Aplicação | Algoritmos & Métodos Chave |
 |---|---|---|---|
@@ -16,7 +16,7 @@ Repositório estruturado contendo projetos práticos, benchmarks e implementaç�
 
 ---
 
-## 🎯 Destaques Técnicos
+## Destaques Técnicos
 
 1. **Prevenção de Vazamento de Dados (Data Leakage):**
    Todos os pré-processadores, estimadores de imputação e scalers são treinados estritamente na partição de treino e apenas transformados nos folds de validação/teste via `Pipeline` e `ColumnTransformer`.
@@ -27,8 +27,8 @@ Repositório estruturado contendo projetos práticos, benchmarks e implementaç�
 
 ---
 
-## 📄 Créditos e Licença
+## Créditos e Licença
 
-- **Instituição:** Instituto de Computação — Universidade Federal de Alagoas (IC/UFAL)
-- **Docente:** Prof. Dr. Aydano Machado
-- **Licença de Código:** MIT License (consulte o arquivo [LICENSE](./LICENSE))
+- **Instituição:**Instituto de Computação — Universidade Federal de Alagoas (IC/UFAL)
+- **Docente:**Prof. Dr. Aydano Machado
+- **Licença de Código:**MIT License (consulte o arquivo [LICENSE](./LICENSE))
