@@ -1,21 +1,34 @@
-# Aprendizagem de Máquina - IC/UFAL
+# Módulos de Aprendizagem de Máquina Aplicada — IC/UFAL
 
-Repositório da disciplina de Aprendizagem de Máquina dos cursos de Ciência da Computação e Engenharia da Computação do Instituto de Computação da Universidade Federal de Alagoas (IC/UFAL).
+Repositório estruturado contendo projetos práticos, benchmarks e implementações dos principais paradigmas de **Machine Learning, Otimização e Inteligência Artificial**, desenvolvido no Instituto de Computação da Universidade Federal de Alagoas (IC/UFAL).
 
-A disciplina tem como objetivo apresentar os principais paradigmas de aprendizagem de máquina, incluindo uma variedade de algoritmos e técnicas. Ela também contempla uma gama de atividades práticas onde os principais algoritmos serão implementados e testados em dados sintéticos e reais. Fornecendo uma visão mais próxima da resolução de problemas e aplicação da aprendizagem de máquina.
+---
 
-Se você está cursando a disciplina, nós encorajamos todas as atividades que fortaleçam o seu aprendizado. Tais como, formar grupos de estudo e discutir os assuntos ministrados e exercícios/atividades etc. No entanto, as respostas e soluções que você envia devem ser o seu próprio trabalho. Para os exercícios de programação, você pode discutir com outros alunos, discutir algoritmos específicos, propriedades de algoritmos, etc., pedimos apenas que você não olhe para nenhum código-fonte escrito por outra pessoa, nem passe sua solução para outro aluno.
+## 🧭 Visão Geral dos Módulos
 
-Para tudo que nos é enviado, assumimos que você está seguindo o código de honra a seguir.
+| Módulo | Paradigma / Área | Dataset / Aplicação | Algoritmos & Métodos Chave |
+|---|---|---|---|
+| [**01_Preprocessing**](./01_Preprocessing/) | Aprendizado Supervisionado & Data Prep | *Pima Indians Diabetes* | Imputação (MICE, KNNImputer, Média), Scalers (PowerTransformer, Robust), Tratamento de Zeros Fisiológicos |
+| [**02_Optimization**](./02_Optimization/) | Metaheurísticas de Otimização Global | Otimização 3D de Padrão de Antenas Espaciais | Subida da Encosta (*Hill Climbing*), Têmpera Simulada (*Simulated Annealing*), Algoritmos Genéticos (*GA*) |
+| [**03_Validation**](./03_Validation/) | Model Selection & MLOps Multiclasse | *Abalone Multiclass Classification* | Validação Cruzada Estratificada 5-fold, Pipelines Scikit-Learn, SVM (RBF/Linear), Regressão Logística, Random Forest |
+| [**04_ReinforcementLearning**](./04_ReinforcementLearning/) | Aprendizado por Reforço (RL) & Simulação | PyGame Learning Environment (*PLE*) | Formulação de MDP, Ambientes de Simulação (Catcher, Maze, Flappy Bird, Doom), Agentes Reativos e Q-Learning |
+| [**05_IOL_H1**](./05_IOL_H1/) | Avaliação de Generalização Clínica | Predição de Sucesso em Cirurgia de Catarata / LIO | Validação estatística rigorosa com submissão cega para prevenção de overfitting em dados biomédicos |
 
-## Código de Honra
+---
 
->"Como membro da comunidade deste curso, não vou participar nem tolerar a desonestidade acadêmica".
+## 🎯 Destaques Técnicos
 
-## Licença
+1. **Prevenção de Vazamento de Dados (Data Leakage):**
+   Todos os pré-processadores, estimadores de imputação e scalers são treinados estritamente na partição de treino e apenas transformados nos folds de validação/teste via `Pipeline` e `ColumnTransformer`.
+2. **Benchmark Rigoroso:**
+   Modelos não são escolhidos com base em treino ingênuo; utilizam-se métricas estratificadas (`StratifiedKFold`), matrizes de confusão completas e métricas robustas como Macro F1-Score e Curvas ROC/PR.
+3. **Serialização e Entrega (MLOps):**
+   Geração de artefatos prontos para deploy (`.pkl`) contendo todo o ciclo de transformação e inferência desacoplado de dependências do ambiente de treinamento.
 
-Todas as soluções desenvolvidas por mim para este repositório estão sob a licença MIT. Vide arquivo LICENSE para mais detalhes.
+---
 
-## Copyright
+## 📄 Créditos e Licença
 
-Copyright (c) 2018 [Aydano Machado](http://www.aydanomachado.com).
+- **Instituição:** Instituto de Computação — Universidade Federal de Alagoas (IC/UFAL)
+- **Docente:** Prof. Dr. Aydano Machado
+- **Licença de Código:** MIT License (consulte o arquivo [LICENSE](./LICENSE))
